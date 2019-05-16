@@ -1,0 +1,8 @@
+D:\Documents\Analista programador\Semestre 2 (mar - jul 2019)\Programacion 2\Entregas\Tarea SoftwORT\SoftwORT\SoftwORT\bin\Debug\SoftwORT.exe.config
+D:\Documents\Analista programador\Semestre 2 (mar - jul 2019)\Programacion 2\Entregas\Tarea SoftwORT\SoftwORT\SoftwORT\bin\Debug\SoftwORT.exe
+D:\Documents\Analista programador\Semestre 2 (mar - jul 2019)\Programacion 2\Entregas\Tarea SoftwORT\SoftwORT\SoftwORT\bin\Debug\SoftwORT.pdb
+D:\Documents\Analista programador\Semestre 2 (mar - jul 2019)\Programacion 2\Entregas\Tarea SoftwORT\SoftwORT\SoftwORT\bin\Debug\SoftwORT_lib.dll
+D:\Documents\Analista programador\Semestre 2 (mar - jul 2019)\Programacion 2\Entregas\Tarea SoftwORT\SoftwORT\SoftwORT\bin\Debug\SoftwORT_lib.pdb
+D:\Documents\Analista programador\Semestre 2 (mar - jul 2019)\Programacion 2\Entregas\Tarea SoftwORT\SoftwORT\SoftwORT\obj\Debug\SoftwORT.csprojResolveAssemblyReference.cache
+D:\Documents\Analista programador\Semestre 2 (mar - jul 2019)\Programacion 2\Entregas\Tarea SoftwORT\SoftwORT\SoftwORT\obj\Debug\SoftwORT.exe
+D:\Documents\Analista programador\Semestre 2 (mar - jul 2019)\Programacion 2\Entregas\Tarea SoftwORT\SoftwORT\SoftwORT\obj\Debug\SoftwORT.pdb
