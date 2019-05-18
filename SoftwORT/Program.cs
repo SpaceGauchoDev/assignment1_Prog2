@@ -12,30 +12,6 @@ namespace SoftwORT
         static bool correrMenu;
         static Admin admin;
 
-        struct ResultadoInt
-        {
-            public int valor;
-            public bool exito;
-
-            public ResultadoInt(int p1, bool p2)
-            {
-                valor = p1;
-                exito = p2;
-            }
-        }
-
-        struct ResultadoString
-        {
-            public string valor;
-            public bool exito;
-
-            public ResultadoString(string p1, bool p2)
-            {
-                valor = p1;
-                exito = p2;
-            }
-        }
-
         static void Main(string[] args)
         {
             correrMenu = true;
@@ -52,26 +28,11 @@ namespace SoftwORT
         {
             Console.Clear();
             MostrarMenuPrincipal();
-
-            /*
-            Console.Write("Seleccione función: ");            
-            string userInput = Console.ReadLine();
-            int parsedInput;
-            int.TryParse(userInput, out parsedInput);
-
-            while (parsedInput < 1 || parsedInput > 5)
-            {
-                Console.WriteLine("Numero de función incorrecta, intente nuevamente.");
-                Console.Write("Seleccione función: ");
-                userInput = Console.ReadLine();
-                int.TryParse(userInput, out parsedInput);
-            }
-            */
-            
+                      
             string msg = "Seleccione función: ";
             string errMsg = "Numero de función incorrecta, intente nuevamente.";
             string succMsg = "Seleccion exitosa, presione cualquier tecla para continuar.";
-            ResultadoInt seleccionDeFuncion = ObtenerIntDentroDeRango(msg, errMsg, succMsg, "", false, 1, 5);
+            Admin.ResultadoInt seleccionDeFuncion = ObtenerIntDentroDeRango(msg, errMsg, succMsg, "", false, 1, 5);
             
 
             switch (seleccionDeFuncion.valor)
@@ -106,7 +67,7 @@ namespace SoftwORT
             string msg = "Ingrese un numero entre 10 y 15 inclusive, s para salir: ";
             string errMsg = "Valor incorrecto.";
             string succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
-            ResultadoInt test = ObtenerIntDentroDeRango(msg, errMsg, succMsg, "s" , true, 10, 15);
+            Admin.ResultadoInt test = ObtenerIntDentroDeRango(msg, errMsg, succMsg, "s" , true, 10, 15);
 
         }
 
@@ -118,7 +79,7 @@ namespace SoftwORT
             string msg = "Ingresar nombre (no puede estar vacio, s para salir): ";
             string errMsg = "Valor incorrecto.";
             string succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
-            ResultadoString test = ObtenerStringNoVacio(msg, errMsg, succMsg, "s", true);
+            Admin.ResultadoString test = ObtenerStringNoVacio(msg, errMsg, succMsg, "s", true);
 
         }
 
@@ -129,7 +90,7 @@ namespace SoftwORT
             string msg = "Ingresar nombre (hasta 8 caracteres de largo, s para salir): ";
             string errMsg = "Valor incorrecto.";
             string succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
-            ResultadoString test = ObtenerStringDeLenghtDentroDeUnRango(msg, errMsg, succMsg, "s", true, 1, 8);
+            Admin.ResultadoString test = ObtenerStringDeLenghtDentroDeUnRango(msg, errMsg, succMsg, "s", true, 1, 8);
 
             Console.ReadLine();
         }
@@ -166,9 +127,9 @@ namespace SoftwORT
         }
 
 
-        static ResultadoInt ObtenerIntDentroDeRango(string solicitudAlUsuario, string mensajeDeError, string mensajeDeExito, string comandoDeEscape, bool escapable, int min, int max)
+        static Admin.ResultadoInt ObtenerIntDentroDeRango(string solicitudAlUsuario, string mensajeDeError, string mensajeDeExito, string comandoDeEscape, bool escapable, int min, int max)
         {
-            ResultadoInt resultado;
+            Admin.ResultadoInt resultado;
             string entradaDeUsuario = "";
 
             // si el usuario no ingresa comando de escape, lo seteamos a algo para evitar que se dispare con ingresos vacios                    
@@ -217,9 +178,9 @@ namespace SoftwORT
         }
 
 
-        static ResultadoString ObtenerStringNoVacio(string solicitudAlUsuario, string mensajeDeError, string mensajeDeExito, string comandoDeEscape, bool escapable)
+        static Admin.ResultadoString ObtenerStringNoVacio(string solicitudAlUsuario, string mensajeDeError, string mensajeDeExito, string comandoDeEscape, bool escapable)
         {
-            ResultadoString resultado;
+            Admin.ResultadoString resultado;
             string entradaDeUsuario = "";
 
             // si el usuario no ingresa comando de escape, lo seteamos a algo para evitar que se dispare con ingresos vacios
@@ -267,9 +228,9 @@ namespace SoftwORT
 
 
 
-        static ResultadoString ObtenerStringDeLenghtDentroDeUnRango(string solicitudAlUsuario, string mensajeDeError, string mensajeDeExito, string comandoDeEscape, bool escapable, int min, int max)
+        static Admin.ResultadoString ObtenerStringDeLenghtDentroDeUnRango(string solicitudAlUsuario, string mensajeDeError, string mensajeDeExito, string comandoDeEscape, bool escapable, int min, int max)
         {
-            ResultadoString resultado;
+            Admin.ResultadoString resultado;
             string entradaDeUsuario = "";
 
             // si el usuario no ingresa comando de escape, lo seteamos a algo para evitar que se dispare con ingresos vacios
