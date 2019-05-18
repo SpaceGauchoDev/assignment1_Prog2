@@ -35,32 +35,57 @@ namespace SoftwORT_lib
             }
         }
 
-
         private void PrecargaDeDatos()
         {
             // creacion de empleados
-
             DateTime fechaNac = new DateTime(1990, 2, 15);
+            DateTime fechaCon = DateTime.Now;
+            fechaCon = fechaCon.AddYears(-7);
             float sueldo = FloatAleatorio(100.0f, 500.0f);
-            AltaEmpleado("Manuel De Armas", "junior", 42935324, fechaNac, sueldo);
+            ResultadoString alta1 = AltaEmpleado("Manuel De Armas", "junior", 42935324, fechaNac, fechaCon, sueldo);
+            Console.WriteLine(alta1.valor);
 
-            fechaNac = new DateTime(2001, 1, 17);
+            fechaNac = new DateTime(1999, 1, 17);
             sueldo = FloatAleatorio(100.0f, 500.0f);
-            AltaEmpleado("Avril Ruglio", "tech lead", 50431051, fechaNac, sueldo);
+            fechaCon = DateTime.Now;
+            fechaCon = fechaCon.AddYears(-1);
+            ResultadoString alta2 = AltaEmpleado("Avril Ruglio", "tech lead", 50431051, fechaNac, fechaCon, sueldo);
+            Console.WriteLine(alta2.valor);
 
             fechaNac = new DateTime(1962, 4, 22);
+            fechaCon = DateTime.Now;
+            fechaCon = fechaCon.AddYears(-15);
             sueldo = FloatAleatorio(100.0f, 500.0f);
-            AltaEmpleado("Silvia Mazon", "senior", 32768555, fechaNac, sueldo);
+            ResultadoString alta3 = AltaEmpleado("Silvia Mazon", "senior", 32768555, fechaNac, fechaCon, sueldo);
+            Console.WriteLine(alta3.valor);
 
             fechaNac = new DateTime(1992, 6, 15);
             sueldo = FloatAleatorio(100.0f, 500.0f);
-            AltaEmpleado("Matias Martines", "junior", 49005954, fechaNac, sueldo);
+            fechaCon = DateTime.Now;
+            fechaCon = fechaCon.AddYears(-3);
+            ResultadoString alta4 = AltaEmpleado("Matias Martines", "junior", 49005954, fechaNac, fechaCon, sueldo);
+            Console.WriteLine(alta4.valor);
 
+            // modificacion de empleados
+            int idEmp1 = ObtenerIdEmpleadoPorCi(49005954);
+            Empleado empMod1 = ObtenerEmpleadoPorId(idEmp1); 
+            ResultadoString mod1 = ModificacionEmpleado(idEmp1, empMod1.ObtenerNombre(), "senior", empMod1.ObtenerCi(), empMod1.ObtenerFechaNacimiento(), empMod1.ObtenerFechaContratacion(), empMod1.ObtenerSueldo());
+            Console.WriteLine(mod1.valor);
+
+            int idEmp2 = ObtenerIdEmpleadoPorCi(50431051);
+            Empleado empMod2 = ObtenerEmpleadoPorId(idEmp2);
+            ResultadoString mod2 = ModificacionEmpleado(idEmp2, empMod2.ObtenerNombre(), empMod2.ObtenerCategoria(), empMod2.ObtenerCi(), empMod2.ObtenerFechaNacimiento(), empMod2.ObtenerFechaContratacion(), 50.0f);
+            Console.WriteLine(mod2.valor);
+
+            int idEmp3 = ObtenerIdEmpleadoPorCi(42935324);
+            Empleado empMod3 = ObtenerEmpleadoPorId(idEmp3);
+            ResultadoString mod3 = ModificacionEmpleado(idEmp3, empMod3.ObtenerNombre(), "tech lead", empMod3.ObtenerCi(), empMod3.ObtenerFechaNacimiento(), empMod3.ObtenerFechaContratacion(), empMod3.ObtenerSueldo() - 50.0f);
+            Console.WriteLine(mod3.valor);
+
+            Console.ReadLine();
         }
 
-
-
-        private ResultadoString AltaEmpleado(string pNom, string pCat, int pCi, DateTime pFNac, float pSueldo)
+        private ResultadoString AltaEmpleado(string pNom, string pCat, int pCi, DateTime pFNac, DateTime pFCon, float pSueldo)
         {
             ResultadoString validesDeDatos;
 
@@ -74,7 +99,7 @@ namespace SoftwORT_lib
             else
             {
                 // validamos el resto de los datos de acuerdo a las reglas de negocio de empleado
-                validesDeDatos = Empleado.DatosEmpleadoValidos(pNom, pCat, pFNac, pSueldo);
+                validesDeDatos = Empleado.DatosEmpleadoValidos(pNom, pCat, pFNac, pFCon, pSueldo);
 
             }
 
@@ -94,6 +119,55 @@ namespace SoftwORT_lib
         }
 
 
+
+        private ResultadoString ModificacionEmpleado(int pId, string pNom, string pCat, int pCi, DateTime pFNac, DateTime pFCon, float pSueldo)
+        {
+            ResultadoString validesDeDatos;
+            Empleado empleado = ObtenerEmpleadoPorId(pId);
+
+            // checkeamos que el empleado exista en el sistema
+            if (empleado == null)
+            {
+                validesDeDatos.exito = false;
+                validesDeDatos.valor = "Error: \n";
+                validesDeDatos.valor += "Empleado con la cedula indicada no existe en el sistema \n";
+            }
+            else
+            {
+                // validamos el resto de los datos de acuerdo a las reglas de negocio de empleado
+                validesDeDatos = Empleado.DatosEmpleadoValidos(pNom, pCat, pFNac, pFCon, pSueldo);
+            }
+
+            // si entramos aca es que todos los campos fueron validados
+            if (validesDeDatos.exito)
+            {
+                validesDeDatos.valor = "Datos de empleado actualizados exitosamente.";
+                empleado.ModificarDatos(pNom, pCat, pCi, pFNac, pFCon, pSueldo);
+            }
+
+            return validesDeDatos;
+        }
+
+
+
+        private int ObtenerIdEmpleadoPorCi(int pCi)
+        {
+            int id = -1;
+            int cont = 0;
+
+            while (cont < empleados.Count && id == -1)
+            {
+                if (empleados[cont].ObtenerCi() == pCi)
+                {
+                    id = empleados[cont].ObtenerId();
+                }
+                else
+                {
+                    cont++;
+                }
+            }
+            return id;
+        }
 
 
         private Empleado ObtenerEmpleadoPorId(int id)
@@ -150,6 +224,7 @@ namespace SoftwORT_lib
             float result;
             Random rand = new Random();
             result = (float)(rand.NextDouble() * b) + a;
+            result = (float)Math.Round(result * 100f) / 100f; // redondeamos el valor para 2 decimales
             return result;
         }
 
