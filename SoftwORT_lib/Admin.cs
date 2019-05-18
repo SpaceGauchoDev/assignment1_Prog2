@@ -35,6 +35,32 @@ namespace SoftwORT_lib
             }
         }
 
+        public struct ResultadoFloat
+        {
+            public float valor;
+            public bool exito;
+
+            public ResultadoFloat(float p1, bool p2)
+            {
+                valor = p1;
+                exito = p2;
+            }
+        }
+
+
+        public struct ResultadoFecha
+        {
+            public DateTime valor;
+            public bool exito;
+
+            public ResultadoFecha(DateTime p1, bool p2)
+            {
+                valor = p1;
+                exito = p2;
+            }
+        }
+
+
         private void PrecargaDeDatos()
         {
             // creacion de empleados
@@ -67,25 +93,25 @@ namespace SoftwORT_lib
             Console.WriteLine(alta4.valor);
 
             // modificacion de empleados
-            int idEmp1 = ObtenerIdEmpleadoPorCi(49005954);
-            Empleado empMod1 = ObtenerEmpleadoPorId(idEmp1); 
-            ResultadoString mod1 = ModificacionEmpleado(idEmp1, empMod1.ObtenerNombre(), "senior", empMod1.ObtenerCi(), empMod1.ObtenerFechaNacimiento(), empMod1.ObtenerFechaContratacion(), empMod1.ObtenerSueldo());
+            ResultadoInt idEmp1 = ObtenerIdEmpleadoPorCi(49005954);
+            Empleado empMod1 = ObtenerEmpleadoPorId(idEmp1.valor); 
+            ResultadoString mod1 = ModificacionEmpleado(idEmp1.valor, empMod1.ObtenerNombre(), "senior", empMod1.ObtenerCi(), empMod1.ObtenerFechaNacimiento(), empMod1.ObtenerFechaContratacion(), empMod1.ObtenerSueldo());
             Console.WriteLine(mod1.valor);
 
-            int idEmp2 = ObtenerIdEmpleadoPorCi(50431051);
-            Empleado empMod2 = ObtenerEmpleadoPorId(idEmp2);
-            ResultadoString mod2 = ModificacionEmpleado(idEmp2, empMod2.ObtenerNombre(), empMod2.ObtenerCategoria(), empMod2.ObtenerCi(), empMod2.ObtenerFechaNacimiento(), empMod2.ObtenerFechaContratacion(), 50.0f);
+            ResultadoInt idEmp2 = ObtenerIdEmpleadoPorCi(50431051);
+            Empleado empMod2 = ObtenerEmpleadoPorId(idEmp2.valor);
+            ResultadoString mod2 = ModificacionEmpleado(idEmp2.valor, empMod2.ObtenerNombre(), empMod2.ObtenerCategoria(), empMod2.ObtenerCi(), empMod2.ObtenerFechaNacimiento(), empMod2.ObtenerFechaContratacion(), 50.0f);
             Console.WriteLine(mod2.valor);
 
-            int idEmp3 = ObtenerIdEmpleadoPorCi(42935324);
-            Empleado empMod3 = ObtenerEmpleadoPorId(idEmp3);
-            ResultadoString mod3 = ModificacionEmpleado(idEmp3, empMod3.ObtenerNombre(), "tech lead", empMod3.ObtenerCi(), empMod3.ObtenerFechaNacimiento(), empMod3.ObtenerFechaContratacion(), empMod3.ObtenerSueldo() - 50.0f);
+            ResultadoInt idEmp3 = ObtenerIdEmpleadoPorCi(42935324);
+            Empleado empMod3 = ObtenerEmpleadoPorId(idEmp3.valor);
+            ResultadoString mod3 = ModificacionEmpleado(idEmp3.valor, empMod3.ObtenerNombre(), "tech lead", empMod3.ObtenerCi(), empMod3.ObtenerFechaNacimiento(), empMod3.ObtenerFechaContratacion(), empMod3.ObtenerSueldo() - 50.0f);
             Console.WriteLine(mod3.valor);
 
             Console.ReadLine();
         }
 
-        private ResultadoString AltaEmpleado(string pNom, string pCat, int pCi, DateTime pFNac, DateTime pFCon, float pSueldo)
+        public ResultadoString AltaEmpleado(string pNom, string pCat, int pCi, DateTime pFNac, DateTime pFCon, float pSueldo)
         {
             ResultadoString validesDeDatos;
 
@@ -120,7 +146,7 @@ namespace SoftwORT_lib
 
 
 
-        private ResultadoString ModificacionEmpleado(int pId, string pNom, string pCat, int pCi, DateTime pFNac, DateTime pFCon, float pSueldo)
+        public ResultadoString ModificacionEmpleado(int pId, string pNom, string pCat, int pCi, DateTime pFNac, DateTime pFCon, float pSueldo)
         {
             ResultadoString validesDeDatos;
             Empleado empleado = ObtenerEmpleadoPorId(pId);
@@ -150,23 +176,27 @@ namespace SoftwORT_lib
 
 
 
-        private int ObtenerIdEmpleadoPorCi(int pCi)
+        public ResultadoInt ObtenerIdEmpleadoPorCi(int pCi)
         {
-            int id = -1;
+            ResultadoInt resultado;
+            resultado.valor = -1;
+            resultado.exito = false;
+
             int cont = 0;
 
-            while (cont < empleados.Count && id == -1)
+            while (cont < empleados.Count && !resultado.exito)
             {
                 if (empleados[cont].ObtenerCi() == pCi)
                 {
-                    id = empleados[cont].ObtenerId();
+                    resultado.exito = true;
+                    resultado.valor = empleados[cont].ObtenerId();
                 }
                 else
                 {
                     cont++;
                 }
             }
-            return id;
+            return resultado;
         }
 
 

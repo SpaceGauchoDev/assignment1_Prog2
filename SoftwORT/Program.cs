@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SoftwORT_lib;
+using System.Globalization;
 
 namespace SoftwORT
 {
@@ -14,6 +15,7 @@ namespace SoftwORT
 
         static void Main(string[] args)
         {
+            
             correrMenu = true;
             admin = new Admin();
 
@@ -21,6 +23,7 @@ namespace SoftwORT
             {
                 Menu();
             }
+            
             Console.ReadLine();
         }
 
@@ -38,10 +41,10 @@ namespace SoftwORT
             switch (seleccionDeFuncion.valor)
             {
                 case 1:
-                    Funcion1();
+                    AltaModificacionEmpleado(true);
                     break;
                 case 2:
-                    Funcion2();
+                    AltaModificacionEmpleado(false);
                     break;
                 case 3:
                     Funcion3();
@@ -59,18 +62,156 @@ namespace SoftwORT
         }
 
 
-        static void Funcion1()
+        static void AltaModificacionEmpleado(bool pAlta)
         {
+            string modo;
+            if (pAlta)
+            {
+                modo = "alta";
+            }
+            else
+            {
+                modo = "modificación";
+            }
+
             Console.Clear();
-            Console.WriteLine("Funcion 1 seleccionada.");
-
-            string msg = "Ingrese un numero entre 10 y 15 inclusive, s para salir: ";
-            string errMsg = "Valor incorrecto.";
+            Console.WriteLine(modo + "de empleado: ");    
+            string msg = "Ingrese un nombre, s para salir: ";
+            string errMsg = "Valor incorrecto, no puede ser vacío";
             string succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
-            Admin.ResultadoInt test = ObtenerIntDentroDeRango(msg, errMsg, succMsg, "s" , true, 10, 15);
+            Admin.ResultadoString nom = ObtenerStringNoVacio(msg, errMsg, succMsg, "s", true);
 
+            // usuario quiere salir a la mitad de ingresar datos
+            if (!nom.exito)
+            {
+                Console.WriteLine("Salida de "+ modo +" de empleado detectada, presione cualquier tecla para volver al menu principal.");
+                Console.ReadLine();
+                return;
+            }
+
+            Console.Clear();
+            Console.WriteLine(modo + "de empleado: ");
+            Console.WriteLine("Categorias: ");
+            Console.WriteLine("1 - Junior");
+            Console.WriteLine("2 - Semi-Senior");
+            Console.WriteLine("3 - Senior");
+            Console.WriteLine("4 - Tech - Lead");
+
+            msg = "Seleccione categoria entre 1 y 4, s para salir: ";
+            errMsg = "Valor incorrecto, debe ser un numero entero entre 1 y 4 inclusive";
+            succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
+            Admin.ResultadoInt cat = ObtenerIntDentroDeRango(msg, errMsg, succMsg, "s" , true, 1, 4);
+
+            // usuario quiere salir a la mitad de ingresar datos
+            if (!cat.exito)
+            {
+                Console.WriteLine("Salida de " + modo + " de empleado detectada, presione cualquier tecla para volver al menu principal.");
+                Console.ReadLine();
+                return;
+            }
+
+            string catString = Empleado.CodigoWebACategoria(cat.valor);
+
+            Console.Clear();
+            Console.WriteLine(modo + "de empleado: ");
+            msg = "Ingrese una cedula, s para salir: ";
+            errMsg = "Valor incorrecto, debe ser un numero entero entre 1 y 99999999 inclusive";
+            succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
+            Admin.ResultadoInt ci = ObtenerIntDentroDeRango(msg, errMsg, succMsg, "s", true, 1, 99999999);
+
+
+            // usuario quiere salir a la mitad de ingresar datos
+            if (!ci.exito)
+            {
+                Console.WriteLine("Salida de " + modo + " de empleado detectada, presione cualquier tecla para volver al menu principal.");
+                Console.ReadLine();
+                return;
+            }
+
+
+            Console.Clear();
+            Console.WriteLine(modo + "de empleado: ");
+            string minimoAnioPosible = (DateTime.Now.Year - Empleado.edadMinima).ToString();
+            msg = "Ingrese una fecha de nacimiento, formato: dd-mm-aaaa, tal que año esta entre 1900 y "+ minimoAnioPosible +", s para salir: ";
+            errMsg = "Valor incorrecto, el formato debe ser: 'dia-mes-año' (ej: 15-2-1990)";
+            succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
+            Admin.ResultadoFecha fNac = ObtenerFechaEntreRangoDeAnios(msg, errMsg, succMsg, "s", true, 1900, DateTime.Now.Year - Empleado.edadMinima);
+
+            // usuario quiere salir a la mitad de ingresar datos
+            if (!fNac.exito)
+            {
+                Console.WriteLine("Salida de " + modo + " de empleado detectada, presione cualquier tecla para volver al menu principal.");
+                Console.ReadLine();
+                return;
+            }
+
+
+            Console.Clear();
+            Console.WriteLine(modo + "de empleado: ");
+            string maximoAnioPosible = DateTime.Now.Year.ToString();
+            msg = "Ingrese una fecha de contratacion, formato: dd-mm-aaaa, tal que año esta entre 1900 y " + maximoAnioPosible + ", s para salir: ";
+            errMsg = "Valor incorrecto, el formato debe ser: 'dia-mes-año' (ej: 17-7-2015)";
+            succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
+            Admin.ResultadoFecha fCon = ObtenerFechaEntreRangoDeAnios(msg, errMsg, succMsg, "s", true, 1900, DateTime.Now.Year);
+
+            // usuario quiere salir a la mitad de ingresar datos
+            if (!fCon.exito)
+            {
+                Console.WriteLine("Salida de " + modo + " de empleado detectada, presione cualquier tecla para volver al menu principal.");
+                Console.ReadLine();
+                return;
+            }
+
+
+            Console.Clear();
+            Console.WriteLine(modo + "de empleado: ");
+            msg = "Ingrese un sueldo por hora, s para salir: ";
+            errMsg = "Valor incorrecto, debe ser un numero entre 1 y 10000 inclusive";
+            succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
+            Admin.ResultadoFloat sueldo = ObtenerFloatDentroDeRango(msg, errMsg, succMsg, "s", true, 1.0f, 10000);
+
+            // usuario quiere salir a la mitad de ingresar datos
+            if (!sueldo.exito)
+            {
+                Console.WriteLine("Salida de " + modo + " de empleado detectada, presione cualquier tecla para volver al menu principal.");
+                Console.ReadLine();
+                return;
+            }
+
+            // si llegamos aca todos los datos han sido ingresados y considerados no vacios y validos, pendiente aprobacion de reglas de negocios
+
+            Admin.ResultadoString intento;
+            intento.valor = "";
+            intento.exito = false;
+
+            if (pAlta)
+            {
+                intento = admin.AltaEmpleado(nom.valor, catString, ci.valor, fNac.valor, fCon.valor, sueldo.valor);
+            }
+            else
+            {
+                Admin.ResultadoInt idEmp;
+                idEmp.valor = -1;
+                idEmp.exito = false;
+                idEmp = admin.ObtenerIdEmpleadoPorCi(ci.valor);       
+                intento = admin.ModificacionEmpleado(idEmp.valor, nom.valor, catString, ci.valor, fNac.valor, fCon.valor, sueldo.valor);
+            }
+
+            
+            if (!intento.exito)
+            {
+                Console.Clear();
+                Console.Write(intento.valor);
+                Console.WriteLine("Intente nuevamente.");            
+            }
+            else
+            {
+                Console.Clear();
+                Console.Write(intento.valor);
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+            }
+            Console.ReadLine();
         }
-
 
         static void Funcion2()
         {
@@ -119,8 +260,8 @@ namespace SoftwORT
             Console.WriteLine();
             Console.WriteLine("Menu Principal:");
             Console.WriteLine("===============");
-            Console.WriteLine("1 - función 1");
-            Console.WriteLine("2 - función 2");
+            Console.WriteLine("1 - Alta de empleado");
+            Console.WriteLine("2 - Modificacion de empleado");
             Console.WriteLine("3 - función 3");
             Console.WriteLine("4 - función 4");
             Console.WriteLine("5 - Salir");
@@ -178,6 +319,58 @@ namespace SoftwORT
         }
 
 
+        static Admin.ResultadoFloat ObtenerFloatDentroDeRango(string solicitudAlUsuario, string mensajeDeError, string mensajeDeExito, string comandoDeEscape, bool escapable, float min, float max)
+        {
+            Admin.ResultadoFloat resultado;
+            string entradaDeUsuario = "";
+
+            // si el usuario no ingresa comando de escape, lo seteamos a algo para evitar que se dispare con ingresos vacios                    
+            if (comandoDeEscape == "")
+            {
+                comandoDeEscape = "s";
+            }
+
+            Console.WriteLine("");
+            Console.Write(solicitudAlUsuario);
+            entradaDeUsuario = Console.ReadLine();
+
+            //usuario quiere salir
+            if ((entradaDeUsuario == comandoDeEscape) && escapable)
+            {
+                resultado.exito = false;
+                resultado.valor = 0;
+                return resultado;
+            }
+
+            float entradaParseada = 0;
+            float.TryParse(entradaDeUsuario, out entradaParseada);
+
+            while ((entradaParseada < min || entradaParseada > max) && entradaDeUsuario != comandoDeEscape)
+            {
+                Console.WriteLine("");
+                Console.WriteLine(mensajeDeError);
+                Console.Write(solicitudAlUsuario);
+                entradaDeUsuario = Console.ReadLine();
+                float.TryParse(entradaDeUsuario, out entradaParseada);
+            }
+
+            if (entradaDeUsuario == comandoDeEscape && escapable)
+            {
+                resultado.valor = 0.0f;
+                resultado.exito = false;
+            }
+            else
+            {
+                Console.WriteLine(mensajeDeExito);
+                resultado.valor = (float)Math.Round(entradaParseada * 100f) / 100f;// redondeamos el valor para 2 decimales
+                resultado.exito = true;
+                Console.ReadLine();
+            }
+            return resultado;
+        }
+
+
+
         static Admin.ResultadoString ObtenerStringNoVacio(string solicitudAlUsuario, string mensajeDeError, string mensajeDeExito, string comandoDeEscape, bool escapable)
         {
             Admin.ResultadoString resultado;
@@ -224,7 +417,6 @@ namespace SoftwORT
 
             return resultado;
         }
-
 
 
 
@@ -277,6 +469,78 @@ namespace SoftwORT
 
 
 
+        static Admin.ResultadoFecha ObtenerFechaEntreRangoDeAnios(string solicitudAlUsuario, string mensajeDeError, string mensajeDeExito, string comandoDeEscape, bool escapable, int min, int max)
+        {
+         
+            Admin.ResultadoFecha resultado;
+            resultado.exito = false;
+            resultado.valor = new DateTime();
+            
+            string entradaDeUsuario = "";
 
+            // si el usuario no ingresa comando de escape, lo seteamos a algo para evitar que se dispare con ingresos vacios
+            if (comandoDeEscape == "")
+            {
+                comandoDeEscape = "s";
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine(solicitudAlUsuario);
+            entradaDeUsuario = Console.ReadLine();
+
+            //usuario quiere salir
+            if (entradaDeUsuario == comandoDeEscape && escapable)
+            {
+                resultado.valor = new DateTime();
+                resultado.exito = false;
+                return resultado;
+            }
+
+            resultado = StringAFecha(entradaDeUsuario);
+
+            while ( (resultado.valor.Year > max || resultado.valor.Year < min) && (!resultado.exito) && (entradaDeUsuario != comandoDeEscape))
+            {
+                Console.WriteLine("");
+                Console.WriteLine(mensajeDeError);
+                Console.Write(solicitudAlUsuario);
+                entradaDeUsuario = Console.ReadLine();
+                resultado = StringAFecha(entradaDeUsuario);
+            }
+
+            if (entradaDeUsuario == comandoDeEscape && escapable)
+            {
+                resultado.valor = new DateTime();
+                resultado.exito = false;
+            }
+            else
+            {
+                Console.WriteLine(mensajeDeExito);
+                Console.ReadLine();
+            }
+            
+            return resultado;        
+        }
+
+        //interpreta strings de formato "DD-MM-YYYY" o "D-M-YYYY"
+        //a formato DateTime
+        static Admin.ResultadoFecha StringAFecha(string pEntrada)
+        {
+            Admin.ResultadoFecha result;
+            result.exito = false;
+            result.valor = new DateTime();
+            string formato = "d-M-yyyy";
+            CultureInfo proveedor = new CultureInfo("es-ES", false);
+            try
+            {
+                result.valor = DateTime.ParseExact(pEntrada, formato, proveedor);
+                result.exito = true;
+            }
+            catch (FormatException)
+            {
+                result.exito = false;
+            }
+
+            return result;
+        } 
     }
 }

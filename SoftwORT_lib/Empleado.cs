@@ -198,6 +198,29 @@ namespace SoftwORT_lib
             return resultado;
         }
 
+
+        public static string CodigoWebACategoria(int pCat)
+        {
+            string result = "";
+
+            switch (pCat)
+            {
+                case 1:
+                    result = "junior";
+                    break;
+                case 2:
+                    result = "semi-senior";
+                    break;
+                case 3:
+                    result = "senior";
+                    break;
+                case 4:
+                    result = "tech lead";
+                    break;
+            }
+            return result;
+        } 
+
         public static bool EsCategoriaEmpleadoValida(string pCat)
         {
             bool exito;
