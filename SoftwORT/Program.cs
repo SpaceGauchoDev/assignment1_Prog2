@@ -10,12 +10,15 @@ namespace SoftwORT
 {
     class Program
     {
+        //variable de control para la ejecucion continuada del programa
         static bool correrMenu;
+        //variable que guarda la instancia de nuestra clase administradora
         static Admin admin;
 
         static void Main(string[] args)
         {
-            
+            //mientras que correrMenu sea true, el menu principal sera mostrado cuando 
+            //todos los otros metodos hallan llegado a su fin
             correrMenu = true;
             admin = new Admin();
 
@@ -29,6 +32,9 @@ namespace SoftwORT
 
         static void Menu()
         {
+            // selector de funcionalidades
+            // el usuario debe elegir una de las funcionalidades listadas para salir del 
+            // menu principal
             Console.Clear();
             MostrarMenuPrincipal();
                       
@@ -47,7 +53,7 @@ namespace SoftwORT
                     AltaModificacionEmpleado(false);
                     break;
                 case 3:
-                    Funcion3();
+                    ListarEmpleados();
                     break;
                 case 4:
                     Funcion4();
@@ -59,6 +65,28 @@ namespace SoftwORT
                     Console.WriteLine("Case incorrecto en Program.cs/Menu");
                     break;
             }
+        }
+
+
+        static void ListarEmpleados()
+        {
+            string entradaUsuario;
+            Console.Clear();
+            Console.WriteLine("Listado de empleados por categoria: ");
+            Console.WriteLine("Categorias: ");
+            Console.WriteLine("Junior");
+            Console.WriteLine("Semi-Senior");
+            Console.WriteLine("Senior");
+            Console.WriteLine("Tech Lead");
+            Console.Write("Ingrese categoria (vacio o categoría inválida listará todos los empleados): ");
+            entradaUsuario = Console.ReadLine();
+
+            Console.Clear();
+            Admin.ResultadoString listado = admin.ListarEmpleados(entradaUsuario);
+            Console.Write(listado.valor);
+
+            Console.WriteLine("Presione cualquier tecla para volver al menu principal");
+            Console.ReadLine();
         }
 
 
@@ -262,7 +290,7 @@ namespace SoftwORT
             Console.WriteLine("===============");
             Console.WriteLine("1 - Alta de empleado");
             Console.WriteLine("2 - Modificacion de empleado");
-            Console.WriteLine("3 - función 3");
+            Console.WriteLine("3 - Listar empleados");
             Console.WriteLine("4 - función 4");
             Console.WriteLine("5 - Salir");
         }

@@ -60,7 +60,6 @@ namespace SoftwORT_lib
             }
         }
 
-
         private void PrecargaDeDatos()
         {
             // creacion de empleados
@@ -94,7 +93,7 @@ namespace SoftwORT_lib
 
             // modificacion de empleados
             ResultadoInt idEmp1 = ObtenerIdEmpleadoPorCi(49005954);
-            Empleado empMod1 = ObtenerEmpleadoPorId(idEmp1.valor); 
+            Empleado empMod1 = ObtenerEmpleadoPorId(idEmp1.valor);
             ResultadoString mod1 = ModificacionEmpleado(idEmp1.valor, empMod1.ObtenerNombre(), "senior", empMod1.ObtenerCi(), empMod1.ObtenerFechaNacimiento(), empMod1.ObtenerFechaContratacion(), empMod1.ObtenerSueldo());
             Console.WriteLine(mod1.valor);
 
@@ -176,6 +175,52 @@ namespace SoftwORT_lib
 
 
 
+        public ResultadoString ListarEmpleados(string pCat)
+        {
+            ResultadoString resultado;
+            resultado.exito = false;
+            resultado.valor = "";
+
+            resultado.valor += "Listado de empleados: \n";
+
+            pCat = pCat.ToLower();
+            int cantEmpleadosEncontrados = 0;
+
+            // si el usuario ingresó una categoría válida
+            if (Empleado.EsCategoriaEmpleadoValida(pCat))
+            {
+                resultado.valor += "\n";
+                for (int i = 0; i < empleados.Count; i++)
+                {
+                    if (empleados[i].ObtenerCategoria() == pCat)
+                    {
+                        resultado.valor += empleados[i].ObtenerInfo();
+                        cantEmpleadosEncontrados++;
+                    }
+                }
+            }
+            // si el usuario no ingresó una categoría válida
+            else
+            {
+                resultado.valor += "(categoría inválida o vacía, se listarán todos los empleados) \n";
+                resultado.valor += "\n";
+                for (int i = 0; i < empleados.Count; i++)
+                {
+                    resultado.valor += empleados[i].ObtenerInfo();
+                    cantEmpleadosEncontrados++;
+                }
+            }
+
+            if (cantEmpleadosEncontrados == 0)
+            {
+                resultado.valor = "No se encontron empleados en el sistema que cumplieran los requisitos de busqueda.";
+            }
+
+            resultado.valor += "\n";
+
+            return resultado;
+        }
+
         public ResultadoInt ObtenerIdEmpleadoPorCi(int pCi)
         {
             ResultadoInt resultado;
@@ -198,7 +243,6 @@ namespace SoftwORT_lib
             }
             return resultado;
         }
-
 
         private Empleado ObtenerEmpleadoPorId(int id)
         {

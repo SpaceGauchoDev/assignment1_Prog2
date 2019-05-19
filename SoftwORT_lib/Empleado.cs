@@ -55,6 +55,13 @@ namespace SoftwORT_lib
             return fechaDeNacimiento;
         }
 
+
+        public string ObtenerInfo()
+        {
+            string result = "Nombre: " + nombreCompleto + " | Ci: " + ci.ToString() + " | Categoria: " + categoria + "\n";
+            return result;   
+        }
+
         public void ModificarDatos(string pNom, string pCat, int pCi, DateTime pFNac, DateTime pFCon, float pSueldo)
         {
             nombreCompleto = pNom;
@@ -69,7 +76,6 @@ namespace SoftwORT_lib
         {
             // checkeamos que los parametros ingresados sean validos basados en reglas de negocio
             // y que los parametros ingresados no sean vacios
-            // se asume que la fecha de contratacion es la misma que la fecha de ingreso al sistema  
 
             Admin.ResultadoString result;
             bool exito = true;
@@ -174,8 +180,8 @@ namespace SoftwORT_lib
 
 
         // devuelve verdadero si las dos fechas son el mismo dia
-        // implementada para distinguir de los casos donde el mismo 
-        // ambas fechas son el mismo dia pero distintas horas
+        // implementada para distinguir de los casos donde potencialmente 
+        // ambas fechas son el mismo dia pero distintas horas, minutos y/o segundos
         private static bool EsMismoDia(DateTime pA, DateTime pB)
         {
             bool resultado = false;
