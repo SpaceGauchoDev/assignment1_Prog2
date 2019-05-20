@@ -41,7 +41,7 @@ namespace SoftwORT
             string msg = "Seleccione función: ";
             string errMsg = "Numero de función incorrecta, intente nuevamente.";
             string succMsg = "Seleccion exitosa, presione cualquier tecla para continuar.";
-            Admin.ResultadoInt seleccionDeFuncion = ObtenerIntDentroDeRango(msg, errMsg, succMsg, "", false, 1, 5);
+            Admin.ResultadoInt seleccionDeFuncion = ObtenerIntDentroDeRango(msg, errMsg, succMsg, "", false, 1, 9);
             
 
             switch (seleccionDeFuncion.valor)
@@ -56,9 +56,21 @@ namespace SoftwORT
                     ListarEmpleados();
                     break;
                 case 4:
-                    Funcion4();
+                    ListarClientesPorAntiguedad();
                     break;
                 case 5:
+                    ListarClientesPorAntiguedad();
+                    break;
+                case 6:
+                    ListarClientesPorAntiguedad();
+                    break;
+                case 7:
+                    AsignarValorCargoExtra(); 
+                    break;
+                case 8:
+                    ListarClientesPorAntiguedad();
+                    break;
+                case 9:
                     Salir();
                     break;
                 default:
@@ -66,6 +78,47 @@ namespace SoftwORT
                     break;
             }
         }
+
+
+        static void AsignarValorCargoExtra()
+        {
+            Console.Clear();
+            Console.WriteLine("Asignar valor 'Cargo Extra'");
+            string msg = "Ingrese una numero mayor que cero, s para salir: ";
+            string errMsg = "Valor incorrecto, debe ingresar un numero mayor que cero.";
+            string succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
+            Admin.ResultadoFloat cE = ObtenerFloatDentroDeRango(msg, errMsg, succMsg, "s", true, 0.1f, float.MaxValue);
+
+            Admin.ResultadoString modificacion = admin.NuevoCargoExtra(cE.valor);
+            Console.WriteLine(modificacion.valor);
+
+            Console.WriteLine("Presione cualquier tecla para volver al menu principal");
+            Console.ReadLine();
+        }
+
+
+
+
+
+
+        static void ListarClientesPorAntiguedad()
+        {
+            Console.Clear();
+            Console.WriteLine("Listado de clientes por antiguedad");
+            int maximoAnioPosible = DateTime.Now.Year;
+            int minimoAnioPosible = 1900;
+            string msg = "Ingrese una fecha, formato: dd-mm-aaaa, tal que año esta entre "+ minimoAnioPosible.ToString() +" y " + maximoAnioPosible.ToString() + ", s para salir: ";
+            string errMsg = "Valor incorrecto, el formato debe ser: 'dia-mes-año' (ej: 15-2-1990)";
+            string succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
+            Admin.ResultadoFecha fCli = ObtenerFechaEntreRangoDeAnios(msg, errMsg, succMsg, "s", true, minimoAnioPosible, maximoAnioPosible);
+
+            Admin.ResultadoString lista = admin.ClientesPorAntiguuedad(fCli.valor);
+            Console.WriteLine(lista.valor);
+
+            Console.WriteLine("Presione cualquier tecla para volver al menu principal");
+            Console.ReadLine();
+        }
+
 
 
         static void ListarEmpleados()
@@ -88,6 +141,11 @@ namespace SoftwORT
             Console.WriteLine("Presione cualquier tecla para volver al menu principal");
             Console.ReadLine();
         }
+
+
+
+
+
 
 
         static void AltaModificacionEmpleado(bool pAlta)
@@ -241,6 +299,7 @@ namespace SoftwORT
             Console.ReadLine();
         }
 
+        /*
         static void Funcion2()
         {
             Console.Clear();
@@ -272,7 +331,7 @@ namespace SoftwORT
 
             Console.ReadLine();
         }
-
+        */
 
         static void Salir()
         {
@@ -291,8 +350,12 @@ namespace SoftwORT
             Console.WriteLine("1 - Alta de empleado");
             Console.WriteLine("2 - Modificacion de empleado");
             Console.WriteLine("3 - Listar empleados");
-            Console.WriteLine("4 - función 4");
-            Console.WriteLine("5 - Salir");
+            Console.WriteLine("4 - Listar clientes por antiguedad");
+            Console.WriteLine("5 - Listar clientes por cantidad de proyectos UNDER CONSTRUCTION");
+            Console.WriteLine("6 - Listar proyectos UNDER CONSTRUCTION");
+            Console.WriteLine("7 - Asignar valor 'cargo extra'");
+            Console.WriteLine("8 - Listar clientes por antiguedad UNDER CONSTRUCTION");
+            Console.WriteLine("9 - Salir");
         }
 
 
@@ -526,7 +589,7 @@ namespace SoftwORT
 
             resultado = StringAFecha(entradaDeUsuario);
 
-            while ( (resultado.valor.Year > max || resultado.valor.Year < min) && (!resultado.exito) && (entradaDeUsuario != comandoDeEscape))
+            while ( (resultado.valor.Year > max || resultado.valor.Year < min) && (resultado.exito) && (entradaDeUsuario != comandoDeEscape))
             {
                 Console.WriteLine("");
                 Console.WriteLine(mensajeDeError);
