@@ -45,8 +45,7 @@ namespace SoftwORT_lib
             horasAusenteEmp = new HorasEmpleado();
         }
 
-        public PorHora( HorasEmpleado pHorasEmpleado, 
-                        string pNom,
+        public PorHora( string pNom,
                         DateTime pFechCom,
                         Cliente pCliente,
                         int pDur,
@@ -57,7 +56,7 @@ namespace SoftwORT_lib
                                                             pEmpleados)
         {
 
-            horasAusenteEmp = pHorasEmpleado;
+            horasAusenteEmp = new HorasEmpleado();
         }
     }
 }

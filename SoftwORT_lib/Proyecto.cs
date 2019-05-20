@@ -13,6 +13,25 @@ namespace SoftwORT_lib
         private Cliente cliente;
         private int duracionEstimada; // dias laborables totales
         private List<Empleado> empleados;
+
+
+
+        public Cliente ObtenerCliente()
+        {
+            return cliente;
+        }
+
+        public string ObtenerNombreFechaDuracionCliente_AsString()
+        {
+            string fecha = fechaDeComienzo.Day.ToString() + "-" + fechaDeComienzo.Month.ToString() + "-" + fechaDeComienzo.Year.ToString();
+            string result = "Nombre: " + nombre + " | Fecha de comienzo: " + fecha + " | Duracion estimada: " + duracionEstimada.ToString() + " días | Cliente: " + cliente.ObtenerNombre() + "\n";
+            return result;
+        }
+
+        public DateTime ObtenerFechaDeComienzo()
+        {
+            return fechaDeComienzo;
+        }
    
         protected Proyecto()
         {

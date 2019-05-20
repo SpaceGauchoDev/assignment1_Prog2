@@ -64,91 +64,137 @@ namespace SoftwORT_lib
 
         private void PrecargaDeDatos()
         {
+            
             Random randomSeed = new Random();
 
-            // creacion de empleados
+            CreacionDeEmpleados(randomSeed);
+
+            CreacionDeClientes(randomSeed);
+
+            // CreacionDeProyectos() debe ejecutarse ultia dentro de PrecargaDeDatos() ya 
+            // que necesita que los arrays empleados y clientes esten iniciados y poblados
+            CreacionDeProyectos();
+        }
+
+
+
+
+        private void CreacionDeEmpleados(Random randomSeed)
+        {
+            // creacion de empleados           
+            //0
             DateTime fechaNac = new DateTime(1990, 2, 15);
             AltaEmpleado("Manuel De Armas", "junior", 42935324, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
 
+            //1
             fechaNac = new DateTime(1999, 1, 17);
             AltaEmpleado("Avril Ruglio", "tech lead", 50431051, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
 
+            //2
             fechaNac = new DateTime(1962, 4, 22);
             AltaEmpleado("Silvia Mazon", "senior", 32768555, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
 
+            //3
             fechaNac = new DateTime(1992, 6, 15);
             AltaEmpleado("Matias Martines", "junior", 49005954, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
 
+            //4
             fechaNac = new DateTime(1995, 3, 7);
             AltaEmpleado("Juan Perez", "junior", 49005955, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
 
+            //5
             fechaNac = new DateTime(1991, 7, 22);
             AltaEmpleado("Maria Rodriguez", "senior", 49005956, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
 
-            fechaNac = new DateTime(1987, 10, 31);         
+            //6
+            fechaNac = new DateTime(1987, 10, 31);
             AltaEmpleado("Nicolas Batalla", "semi-senior", 49005957, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
 
+            //7
             fechaNac = new DateTime(1984, 1, 14);
             AltaEmpleado("Andrea Durlacher", "tech lead", 49005958, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
 
-            fechaNac = new DateTime(1991, 6, 5);         
+            //8
+            fechaNac = new DateTime(1991, 6, 5);
             AltaEmpleado("Alfonso Correa", "junior", 49005959, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+
+            //9
+            fechaNac = new DateTime(1995, 2, 1);
+            AltaEmpleado("Julian Cabrera", "semi-senior", 49005960, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+
+            //10
+            fechaNac = new DateTime(1992, 12, 23);
+            AltaEmpleado("Sebastian Sueldo", "junior", 49005961, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
 
             // modificacion de empleados
             ResultadoInt idEmp1 = ObtenerIdEmpleadoPorCi(49005954);
             Empleado empMod1 = ObtenerEmpleadoPorId(idEmp1.valor);
             ModificacionEmpleado(idEmp1.valor, empMod1.ObtenerNombre(), "senior", empMod1.ObtenerCi(), empMod1.ObtenerFechaNacimiento(), empMod1.ObtenerFechaContratacion(), empMod1.ObtenerSueldo());
-    
+
             ResultadoInt idEmp2 = ObtenerIdEmpleadoPorCi(50431051);
             Empleado empMod2 = ObtenerEmpleadoPorId(idEmp2.valor);
             ModificacionEmpleado(idEmp2.valor, empMod2.ObtenerNombre(), empMod2.ObtenerCategoria(), empMod2.ObtenerCi(), empMod2.ObtenerFechaNacimiento(), empMod2.ObtenerFechaContratacion(), 50.0f);
-            
+
 
             ResultadoInt idEmp3 = ObtenerIdEmpleadoPorCi(42935324);
             Empleado empMod3 = ObtenerEmpleadoPorId(idEmp3.valor);
             ModificacionEmpleado(idEmp3.valor, empMod3.ObtenerNombre(), "tech lead", empMod3.ObtenerCi(), empMod3.ObtenerFechaNacimiento(), empMod3.ObtenerFechaContratacion(), empMod3.ObtenerSueldo() - 50.0f);
-            
+        }
 
+        private void CreacionDeClientes(Random randomSeed)
+        {
             // creacion de clientes       
-            Cliente cliente1 = new Cliente("Umbrella", "123456789111", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente0 = new Cliente("Umbrella", "123456789111", FechaPasadaAleatoria(15, randomSeed));
+            clientes.Add(cliente0);
+
+            Cliente cliente1 = new Cliente("MomCorp", "123456789112", FechaPasadaAleatoria(15, randomSeed));
             clientes.Add(cliente1);
 
-            Cliente cliente2 = new Cliente("MomCorp", "123456789112", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente2 = new Cliente("BuyNLarge", "123456789113", FechaPasadaAleatoria(15, randomSeed));
             clientes.Add(cliente2);
 
-            Cliente cliente3 = new Cliente("BuyNLarge", "123456789113", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente3 = new Cliente("WolframAndHart", "123456789114", FechaPasadaAleatoria(15, randomSeed));
             clientes.Add(cliente3);
 
-            Cliente cliente4 = new Cliente("WolframAndHart", "123456789114", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente4 = new Cliente("OsCorp", "123456789115", FechaPasadaAleatoria(15, randomSeed));
             clientes.Add(cliente4);
 
-            Cliente cliente5 = new Cliente("OsCorp", "123456789115", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente5 = new Cliente("HansoFoundation", "123456789116", FechaPasadaAleatoria(15, randomSeed));
             clientes.Add(cliente5);
 
-            Cliente cliente6 = new Cliente("HansoFoundation", "123456789116", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente6 = new Cliente("ZorgIndustries", "123456789117", FechaPasadaAleatoria(15, randomSeed));
             clientes.Add(cliente6);
 
-            Cliente cliente7 = new Cliente("ZorgIndustries", "123456789117", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente7 = new Cliente("OCP", "123456789118", FechaPasadaAleatoria(15, randomSeed));
             clientes.Add(cliente7);
+        }
 
-            Cliente cliente8 = new Cliente("OCP", "123456789118", FechaPasadaAleatoria(15, randomSeed));
-            clientes.Add(cliente8);
-
+        private void CreacionDeProyectos()
+        {
             // creacion de proyectos presupuestados
             List<Empleado> empList1 = new List<Empleado>() { empleados[0], empleados[1] };
-            Presupuestado proyect1 = new Presupuestado(456.0f, "Virus-T", DateTime.Now.AddDays(1), cliente1, 3, empList1);
+            Presupuestado proyect1 = new Presupuestado(456.0f, "Virus-T", DateTime.Now.AddDays(5), clientes[0], 3, empList1);
             proyectos.Add(proyect1);
 
             List<Empleado> empList2 = new List<Empleado>() { empleados[2] };
-            Presupuestado proyect2 = new Presupuestado(150.0f, "EyePhone", DateTime.Now.AddDays(-3), cliente2, 8, empList2);
+            Presupuestado proyect2 = new Presupuestado(150.0f, "EyePhone", DateTime.Now.AddDays(-3), clientes[0], 8, empList2);
             proyectos.Add(proyect2);
 
             List<Empleado> empList3 = new List<Empleado>() { empleados[3], empleados[4], empleados[5] };
-            Presupuestado proyect3 = new Presupuestado(650.0f, "WallEBot", DateTime.Now.AddDays(5), cliente3, 10, empList3);
+            Presupuestado proyect3 = new Presupuestado(650.0f, "WallEBot", DateTime.Now.AddDays(5), clientes[0], 10, empList3);
             proyectos.Add(proyect3);
 
+            // creacion de proyectos por hora
+            List<Empleado> empList5 = new List<Empleado>() { empleados[8] };
+            PorHora proyect5 = new PorHora("Sabadebodueira", DateTime.Now.AddDays(-3), clientes[1], 7, empList5);
+            proyectos.Add(proyect5);
+
+            List<Empleado> empList6 = new List<Empleado>() { empleados[9], empleados[10] };
+            PorHora proyect6 = new PorHora("Fiebre de sabado a la noche", DateTime.Now.AddDays(-1), clientes[2], 3, empList6);
+            proyectos.Add(proyect6);
+
             List<Empleado> empList4 = new List<Empleado>() { empleados[6], empleados[7] };
-            Presupuestado proyect4 = new Presupuestado(370.0f, "RoboCop2", DateTime.Now.AddDays(2), cliente8, 5, empList4);
+            PorHora proyect4 = new PorHora("RoboCop2", DateTime.Now.AddDays(2), clientes[1], 5, empList4);
             proyectos.Add(proyect4);
         }
 
@@ -157,9 +203,98 @@ namespace SoftwORT_lib
         {
             ResultadoString resultado = PorHora.ActualizarCargoExtra(pNuevoCargo);
             return resultado;
-        } 
+        }
 
-        public ResultadoString ClientesPorAntiguuedad(DateTime pFCli)
+        public ResultadoString ListarTodosLosProyectos()
+        {
+            ResultadoString resultado;
+            resultado.exito = false;
+            resultado.valor = "";
+
+            if (proyectos.Count > 0)
+            {
+                resultado.exito = true;
+                for (int i = 0; i < proyectos.Count; i++)
+                {
+                    resultado.valor += proyectos[i].ObtenerNombreFechaDuracionCliente_AsString();
+                }
+            }
+            else {
+                resultado.valor = "No hay proyectos ingresados en el sistema.";
+                resultado.exito = false;
+            }
+
+            resultado.valor += "\n";
+            return resultado;
+        }
+
+
+        public ResultadoString ListarProyectosPorFechaDeComienzo(DateTime pFecha)
+        {
+            ResultadoString resultado;
+            resultado.exito = false;
+            resultado.valor = "";
+
+            int cont = 0; 
+
+            if (proyectos.Count > 0)
+            {
+                resultado.exito = true;
+                for (int i = 0; i < proyectos.Count; i++)
+                {
+                    if (pFecha.Year == proyectos[i].ObtenerFechaDeComienzo().Year &&
+                        pFecha.Month == proyectos[i].ObtenerFechaDeComienzo().Month &&
+                        pFecha.Day == proyectos[i].ObtenerFechaDeComienzo().Day)
+                    {
+                        resultado.valor += proyectos[i].ObtenerNombreFechaDuracionCliente_AsString();
+                        cont++;
+                    }
+                }
+                if (cont == 0)
+                {
+                    resultado.valor = "No hay proyectos ingresados que cumplieran los requisitos de busqueda.";
+                    resultado.exito = false;
+                }
+            }
+            else
+            {
+                resultado.valor = "No hay proyectos ingresados en el sistema.";
+                resultado.exito = false;
+            }
+
+            resultado.valor += "\n";
+            return resultado;
+        }
+
+
+        public ResultadoString ListarClientesConCantidadDeProyectos()
+        {
+            ResultadoString resultado;
+            resultado.exito = true;
+            resultado.valor = "";
+
+            for (int i = 0; i < clientes.Count; i++)
+            {
+                string rutCliente = clientes[i].ObtenerRut();
+                int cantProCli = 0;
+
+                for (int j = 0; j < proyectos.Count; j++)
+                {
+                    if (rutCliente == proyectos[j].ObtenerCliente().ObtenerRut())
+                    {
+                        cantProCli++;
+                    }
+                }
+
+                resultado.valor += "Cantidad de proyectos " +  cantProCli.ToString() + " | " + clientes[i].ObtenerNomRutRelLab_AsString();
+            }
+
+            resultado.valor += "\n";
+            return resultado;
+        }
+
+
+        public ResultadoString ClientesPorAntiguedad(DateTime pFCli)
         {
             ResultadoString resultado;
             resultado.exito = false;

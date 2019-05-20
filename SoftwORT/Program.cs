@@ -59,16 +59,16 @@ namespace SoftwORT
                     ListarClientesPorAntiguedad();
                     break;
                 case 5:
-                    ListarClientesPorAntiguedad();
+                    ListarClientesPorCantidadDeProyectos();
                     break;
                 case 6:
-                    ListarClientesPorAntiguedad();
+                    ListarTodosLosProyectos();
                     break;
                 case 7:
-                    AsignarValorCargoExtra(); 
+                    ListarProyectosPorFechaDeComienzo(); 
                     break;
                 case 8:
-                    ListarClientesPorAntiguedad();
+                    AsignarValorCargoExtra();
                     break;
                 case 9:
                     Salir();
@@ -79,6 +79,21 @@ namespace SoftwORT
             }
         }
 
+        static void MostrarMenuPrincipal()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Menu Principal:");
+            Console.WriteLine("===============");
+            Console.WriteLine("1 - Alta de empleado");
+            Console.WriteLine("2 - Modificacion de empleado");
+            Console.WriteLine("3 - Listar empleados");
+            Console.WriteLine("4 - Listar clientes por antiguedad");
+            Console.WriteLine("5 - Listar clientes por cantidad de proyectos");
+            Console.WriteLine("6 - Listar proyectos");         
+            Console.WriteLine("7 - Listar proyectos por fecha de comienzo");
+            Console.WriteLine("8 - Asignar valor 'cargo extra'");
+            Console.WriteLine("9 - Salir");
+        }
 
         static void AsignarValorCargoExtra()
         {
@@ -97,8 +112,59 @@ namespace SoftwORT
         }
 
 
+        static void ListarClientesPorCantidadDeProyectos()
+        {
+            Console.Clear();
+            Console.WriteLine("Listado de todos los clientes con la cantidad de proyectos que tienen asociados");
+            Admin.ResultadoString lista = admin.ListarClientesConCantidadDeProyectos();
+            Console.WriteLine(lista.valor);
+
+            Console.WriteLine("Presione cualquier tecla para volver al menu principal");
+            Console.ReadLine();
+        }
 
 
+
+        static void ListarTodosLosProyectos()
+        {
+            Console.Clear();
+            Console.WriteLine("Listado de todos los proyectos");
+            Admin.ResultadoString lista = admin.ListarTodosLosProyectos();
+            Console.WriteLine(lista.valor);
+
+            Console.WriteLine("Presione cualquier tecla para volver al menu principal");
+            Console.ReadLine();
+        }
+
+        static void ListarProyectosPorFechaDeComienzo()
+        {
+            Console.Clear();
+            Console.WriteLine("Listado de proyectos por fecha de comienzo");
+            // estos topes fueron creados para ayudar al testeo
+            // los datos precargados no superan este rango por lo que buscar fuera de estas fechas siempre
+            // devolveria cero resultados
+            // la fecha actual mas 5 dias deberia dar 2 resultados
+            DateTime max = DateTime.Now.AddDays (5); 
+            DateTime min = DateTime.Now.AddDays (-3);
+            string msg = "Ingrese una fecha, formato: dd-mm-aaaa, tal que esté entre " + FechaAString(min) + " y " + FechaAString(max) + ", s para salir: ";
+            string errMsg = "Valor incorrecto, el formato debe ser: 'dia-mes-año' (ej: 15-2-1990)";
+            string succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
+            Admin.ResultadoFecha fPro = ObtenerFechaEntreRangoDeFechas(msg, errMsg, succMsg, "s", true, min, max);
+
+            if (!fPro.exito)
+            {
+                Console.WriteLine("Salida de 'Listado de proyectos por fecha de comienzo' detectada, presione cualquier tecla para volver al menu principal.");
+                Console.ReadLine();
+                return;
+
+            }
+            
+            Admin.ResultadoString lista = admin.ListarProyectosPorFechaDeComienzo(fPro.valor);
+            Console.WriteLine(lista.valor);
+            
+            Console.WriteLine("Presione cualquier tecla para volver al menu principal");
+            Console.ReadLine();
+        }
 
 
         static void ListarClientesPorAntiguedad()
@@ -112,13 +178,19 @@ namespace SoftwORT
             string succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
             Admin.ResultadoFecha fCli = ObtenerFechaEntreRangoDeAnios(msg, errMsg, succMsg, "s", true, minimoAnioPosible, maximoAnioPosible);
 
-            Admin.ResultadoString lista = admin.ClientesPorAntiguuedad(fCli.valor);
+            if (!fCli.exito)
+            {
+                Console.WriteLine("Salida de 'Listado de clientes por antiguedad' detectada, presione cualquier tecla para volver al menu principal.");
+                Console.ReadLine();
+                return;
+
+            }
+            Admin.ResultadoString lista = admin.ClientesPorAntiguedad(fCli.valor);
             Console.WriteLine(lista.valor);
 
             Console.WriteLine("Presione cualquier tecla para volver al menu principal");
             Console.ReadLine();
         }
-
 
 
         static void ListarEmpleados()
@@ -141,12 +213,6 @@ namespace SoftwORT
             Console.WriteLine("Presione cualquier tecla para volver al menu principal");
             Console.ReadLine();
         }
-
-
-
-
-
-
 
         static void AltaModificacionEmpleado(bool pAlta)
         {
@@ -299,40 +365,6 @@ namespace SoftwORT
             Console.ReadLine();
         }
 
-        /*
-        static void Funcion2()
-        {
-            Console.Clear();
-            Console.WriteLine("Funcion 2 seleccionada.");
-            string msg = "Ingresar nombre (no puede estar vacio, s para salir): ";
-            string errMsg = "Valor incorrecto.";
-            string succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
-            Admin.ResultadoString test = ObtenerStringNoVacio(msg, errMsg, succMsg, "s", true);
-
-        }
-
-        static void Funcion3()
-        {
-            Console.Clear();
-            Console.WriteLine("Funcion 3 seleccionada.");
-            string msg = "Ingresar nombre (hasta 8 caracteres de largo, s para salir): ";
-            string errMsg = "Valor incorrecto.";
-            string succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
-            Admin.ResultadoString test = ObtenerStringDeLenghtDentroDeUnRango(msg, errMsg, succMsg, "s", true, 1, 8);
-
-            Console.ReadLine();
-        }
-
-
-        static void Funcion4()
-        {
-            Console.Clear();
-            Console.WriteLine("Funcion 4 seleccionada.");
-
-            Console.ReadLine();
-        }
-        */
-
         static void Salir()
         {
             Console.Clear();
@@ -342,21 +374,12 @@ namespace SoftwORT
 
 
 
-        static void MostrarMenuPrincipal()
-        {
-            Console.WriteLine();
-            Console.WriteLine("Menu Principal:");
-            Console.WriteLine("===============");
-            Console.WriteLine("1 - Alta de empleado");
-            Console.WriteLine("2 - Modificacion de empleado");
-            Console.WriteLine("3 - Listar empleados");
-            Console.WriteLine("4 - Listar clientes por antiguedad");
-            Console.WriteLine("5 - Listar clientes por cantidad de proyectos UNDER CONSTRUCTION");
-            Console.WriteLine("6 - Listar proyectos UNDER CONSTRUCTION");
-            Console.WriteLine("7 - Asignar valor 'cargo extra'");
-            Console.WriteLine("8 - Listar clientes por antiguedad UNDER CONSTRUCTION");
-            Console.WriteLine("9 - Salir");
-        }
+
+
+
+        // =========
+        // Utilities
+        // vvvvvvvvv
 
 
         static Admin.ResultadoInt ObtenerIntDentroDeRango(string solicitudAlUsuario, string mensajeDeError, string mensajeDeExito, string comandoDeEscape, bool escapable, int min, int max)
@@ -589,7 +612,7 @@ namespace SoftwORT
 
             resultado = StringAFecha(entradaDeUsuario);
 
-            while ( (resultado.valor.Year > max || resultado.valor.Year < min) && (resultado.exito) && (entradaDeUsuario != comandoDeEscape))
+            while ( (resultado.valor.Year > max || resultado.valor.Year < min) && (!resultado.exito) && (entradaDeUsuario != comandoDeEscape))
             {
                 Console.WriteLine("");
                 Console.WriteLine(mensajeDeError);
@@ -612,6 +635,61 @@ namespace SoftwORT
             return resultado;        
         }
 
+
+
+        static Admin.ResultadoFecha ObtenerFechaEntreRangoDeFechas(string solicitudAlUsuario, string mensajeDeError, string mensajeDeExito, string comandoDeEscape, bool escapable, DateTime min, DateTime max)
+        {
+
+            Admin.ResultadoFecha resultado;
+            resultado.exito = false;
+            resultado.valor = new DateTime();
+
+            string entradaDeUsuario = "";
+
+            // si el usuario no ingresa comando de escape, lo seteamos a algo para evitar que se dispare con ingresos vacios
+            if (comandoDeEscape == "")
+            {
+                comandoDeEscape = "s";
+            }
+
+            Console.WriteLine("");
+            Console.WriteLine(solicitudAlUsuario);
+            entradaDeUsuario = Console.ReadLine();
+
+            //usuario quiere salir
+            if (entradaDeUsuario == comandoDeEscape && escapable)
+            {
+                resultado.valor = new DateTime();
+                resultado.exito = false;
+                return resultado;
+            }
+
+            resultado = StringAFecha(entradaDeUsuario);
+            
+            while ((resultado.valor > max || resultado.valor < min) && (!resultado.exito) && (entradaDeUsuario != comandoDeEscape))
+            {
+                Console.WriteLine("");
+                Console.WriteLine(mensajeDeError);
+                Console.Write(solicitudAlUsuario);
+                entradaDeUsuario = Console.ReadLine();
+                resultado = StringAFecha(entradaDeUsuario);
+            }
+
+            if (entradaDeUsuario == comandoDeEscape && escapable)
+            {
+                resultado.valor = new DateTime();
+                resultado.exito = false;
+            }
+            else
+            {
+                Console.WriteLine(mensajeDeExito);
+                Console.ReadLine();
+            }
+
+            return resultado;
+        }
+
+
         //interpreta strings de formato "DD-MM-YYYY" o "D-M-YYYY"
         //a formato DateTime
         static Admin.ResultadoFecha StringAFecha(string pEntrada)
@@ -632,6 +710,13 @@ namespace SoftwORT
             }
 
             return result;
-        } 
+        }
+
+
+        static string FechaAString(DateTime pEntrada)
+        {
+            string result = pEntrada.Day.ToString() + "-" + pEntrada.Month.ToString() + "-" + pEntrada.Year.ToString();
+            return result;
+        }
     }
 }

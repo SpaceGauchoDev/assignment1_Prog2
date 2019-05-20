@@ -32,6 +32,16 @@ namespace SoftwORT_lib
             return primeraRelacionLaboral;
         }
 
+        public string ObtenerRut()
+        {
+            return rut;
+        }
+
+        public string ObtenerNombre()
+        {
+            return nombre;
+        }
+
         public string ObtenerNomRutRelLab_AsString()
         {
             string fecha = primeraRelacionLaboral.Day.ToString() + " - " + primeraRelacionLaboral.Month.ToString() + " - "  + primeraRelacionLaboral.Year.ToString();
