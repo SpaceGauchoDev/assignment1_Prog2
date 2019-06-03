@@ -346,9 +346,7 @@ namespace SoftwORT_lib
             if (validesDeDatos.exito)
             {
                 validesDeDatos.valor = "Empleado creado exitosamente.";
-                int nuevoIdEmpleado = Empleado.ultimoIdEmpleado + 1;
-                Empleado.ultimoIdEmpleado = nuevoIdEmpleado;
-                //DateTime fechaActual = DateTime.Now;
+                int nuevoIdEmpleado = Empleado.NuevoIdEmpleado();
 
                 Empleado empleado = new Empleado(pNom, pCat, nuevoIdEmpleado, pCi, pFCon, pFNac, pSueldo);
                 empleados.Add(empleado);

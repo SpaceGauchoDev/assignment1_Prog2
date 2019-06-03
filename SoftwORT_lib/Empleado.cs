@@ -9,7 +9,7 @@ namespace SoftwORT_lib
     public class Empleado
     {
         public static int edadMinima = 18;
-        public static int ultimoIdEmpleado = 0;
+        private static int ultimoIdEmpleado = 0;
 
         private string nombreCompleto;
         private int id;
@@ -70,6 +70,13 @@ namespace SoftwORT_lib
             fechaDeNacimiento = pFNac;
             fechaDeContratacion = pFCon;
             sueldoPorHora = pSueldo;
+        }
+
+
+        public static int NuevoIdEmpleado()
+        {
+            ultimoIdEmpleado++;
+            return ultimoIdEmpleado;
         }
 
         public static Admin.ResultadoString DatosEmpleadoValidos(string pNom, string pCat, DateTime pFNac, DateTime pFCon, float pSueldo)
