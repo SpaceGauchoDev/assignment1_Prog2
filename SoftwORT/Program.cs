@@ -314,7 +314,6 @@ namespace SoftwORT
                 return;
             }
 
-
             Console.Clear();
             Console.WriteLine(modo + "de empleado: ");
             msg = "Ingrese un sueldo por hora, s para salir: ";
@@ -330,6 +329,68 @@ namespace SoftwORT
                 return;
             }
 
+            // obtenemos nombre de usuario
+            Console.Clear();
+            Console.WriteLine(modo + "de empleado: ");
+            msg = "Ingrese un nombre de usuario, s para salir: ";
+            errMsg = "Valor incorrecto, no puede ser vacío";
+            succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
+            Admin.ResultadoString nomUsu = ObtenerStringNoVacio(msg, errMsg, succMsg, "s", true);
+
+            // usuario quiere salir a la mitad de ingresar datos
+            if (!nomUsu.exito)
+            {
+                Console.WriteLine("Salida de " + modo + " de empleado detectada, presione cualquier tecla para volver al menu principal.");
+                Console.ReadLine();
+                return;
+            }
+
+            // obtenemos contrasenia
+            Console.Clear();
+            Console.WriteLine(modo + "de empleado: ");
+            msg = "Ingrese una contrasenia, s para salir: ";
+            errMsg = "Valor incorrecto, no puede ser vacío";
+            succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
+            Admin.ResultadoString cont = ObtenerStringNoVacio(msg, errMsg, succMsg, "s", true);
+
+            // usuario quiere salir a la mitad de ingresar datos
+            if (!cont.exito)
+            {
+                Console.WriteLine("Salida de " + modo + " de empleado detectada, presione cualquier tecla para volver al menu principal.");
+                Console.ReadLine();
+                return;
+            }
+
+
+            Console.Clear();
+            Console.WriteLine(modo + "de empleado: ");
+            Console.WriteLine("Roles: ");
+            Console.WriteLine("1 - Administrador");
+            Console.WriteLine("2 - No Administrador");
+
+            msg = "Seleccione un rol entre 1 y 2, s para salir: ";
+            errMsg = "Valor incorrecto, debe ser un numero entero entre 1 y 2 inclusive";
+            succMsg = "Valor recibido exitosamente, presione cualquier tecla para continuar.";
+            Admin.ResultadoInt rol = ObtenerIntDentroDeRango(msg, errMsg, succMsg, "s", true, 1, 2);
+            bool rolBool;
+
+            // usuario quiere salir a la mitad de ingresar datos
+            if (!rol.exito)
+            {
+                Console.WriteLine("Salida de " + modo + " de empleado detectada, presione cualquier tecla para volver al menu principal.");
+                Console.ReadLine();
+                return;
+            }
+
+            if (rol.valor == 1)
+            {
+                rolBool = true;
+            }
+            else
+            {
+                rolBool = false;
+            }
+
             // si llegamos aca todos los datos han sido ingresados y considerados no vacios y validos, pendiente aprobacion de reglas de negocios
 
             Admin.ResultadoString intento;
@@ -338,7 +399,7 @@ namespace SoftwORT
 
             if (pAlta)
             {
-                intento = admin.AltaEmpleado(nom.valor, catString, ci.valor, fNac.valor, fCon.valor, sueldo.valor);
+                intento = admin.AltaEmpleado(nom.valor, catString, ci.valor, fNac.valor, fCon.valor, sueldo.valor, rolBool, nomUsu.valor, cont.valor);
             }
             else
             {
@@ -346,7 +407,7 @@ namespace SoftwORT
                 idEmp.valor = -1;
                 idEmp.exito = false;
                 idEmp = admin.ObtenerIdEmpleadoPorCi(ci.valor);       
-                intento = admin.ModificacionEmpleado(idEmp.valor, nom.valor, catString, ci.valor, fNac.valor, fCon.valor, sueldo.valor);
+                intento = admin.ModificacionEmpleado(idEmp.valor, nom.valor, catString, ci.valor, fNac.valor, fCon.valor, sueldo.valor, rolBool, nomUsu.valor, cont.valor);
             }
 
             
@@ -371,11 +432,6 @@ namespace SoftwORT
             Console.WriteLine("Comando de salida detectado, presione cualquier tecla para salir.");
             correrMenu = false;
         }
-
-
-
-
-
 
         // =========
         // Utilities

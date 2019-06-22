@@ -18,6 +18,7 @@ namespace SoftwORT_lib
         private DateTime fechaDeContratacion;
         private float sueldoPorHora;
         private string categoria;
+        private Usuario usuario;
 
         public int ObtenerId()
         {
@@ -53,6 +54,11 @@ namespace SoftwORT_lib
         public DateTime ObtenerFechaNacimiento()
         {
             return fechaDeNacimiento;
+        }
+
+        public Usuario ObtenerUsuario()
+        {
+            return usuario;
         }
 
 
@@ -268,11 +274,13 @@ namespace SoftwORT_lib
             fechaDeContratacion = new DateTime(0, 0, 0);
             fechaDeNacimiento = new DateTime(0, 0, 0);
             sueldoPorHora = -1;
-            categoria = ""; 
+            categoria = "";
+
+            usuario = new Usuario();
         }
 
         // constructor con parametros
-        public Empleado(string pNom, string pCat, int pId, int pCi, DateTime pFCont, DateTime pFNac, float pSueldo)
+        public Empleado(string pNom, string pCat, int pId, int pCi, DateTime pFCont, DateTime pFNac, float pSueldo, bool pAdmin, string pNomUsu, string pCon)
         {
             nombreCompleto = pNom;
             id = pId;
@@ -281,6 +289,15 @@ namespace SoftwORT_lib
             fechaDeNacimiento = pFNac;
             sueldoPorHora = pSueldo;
             categoria = pCat;
+
+            if (pAdmin)
+            {
+                usuario = new Usuario(Usuario.Rol.Admin, pNomUsu, pCon);
+            }
+            else
+            {
+                usuario = new Usuario(Usuario.Rol.Empleado, pNomUsu, pCon);
+            }            
         }
     }
 }

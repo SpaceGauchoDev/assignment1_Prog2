@@ -12,6 +12,24 @@ namespace SoftwORT_lib
         private List<Empleado> empleados;
         private List<Proyecto> proyectos;
         private List<Cliente> clientes;
+        private Usuario usuarioActual;
+
+        // singleton var
+        public static Admin instancia;
+
+        // singleton access / creation
+        public static Admin Instancia
+        {
+            get
+            {
+                if (instancia == null)
+                {
+                    instancia = new Admin();
+                }
+                return instancia;
+            }
+        }
+
 
         public struct ResultadoString
         {
@@ -71,7 +89,7 @@ namespace SoftwORT_lib
 
             CreacionDeClientes(randomSeed);
 
-            // CreacionDeProyectos() debe ejecutarse ultia dentro de PrecargaDeDatos() ya 
+            // CreacionDeProyectos() debe ejecutarse ultima dentro de PrecargaDeDatos() ya 
             // que necesita que los arrays empleados y clientes esten iniciados y poblados
             CreacionDeProyectos();
         }
@@ -84,88 +102,87 @@ namespace SoftwORT_lib
             // creacion de empleados           
             //0
             DateTime fechaNac = new DateTime(1990, 2, 15);
-            AltaEmpleado("Manuel De Armas", "junior", 42935324, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+            AltaEmpleado("Manuel De Armas", "junior", 42935324, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), true, "e0", "e0");
 
             //1
             fechaNac = new DateTime(1999, 1, 17);
-            AltaEmpleado("Avril Ruglio", "tech lead", 50431051, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+            AltaEmpleado("Avril Ruglio", "tech lead", 50431051, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), false, "e1", "e1");
 
             //2
             fechaNac = new DateTime(1962, 4, 22);
-            AltaEmpleado("Silvia Mazon", "senior", 32768555, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+            AltaEmpleado("Silvia Mazon", "senior", 32768555, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), false, "e2", "e2");
 
             //3
             fechaNac = new DateTime(1992, 6, 15);
-            AltaEmpleado("Matias Martines", "junior", 49005954, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+            AltaEmpleado("Matias Martines", "junior", 49005954, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), false, "e3", "e3");
 
             //4
             fechaNac = new DateTime(1995, 3, 7);
-            AltaEmpleado("Juan Perez", "junior", 49005955, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+            AltaEmpleado("Juan Perez", "junior", 49005955, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), false, "e4", "e4");
 
             //5
             fechaNac = new DateTime(1991, 7, 22);
-            AltaEmpleado("Maria Rodriguez", "senior", 49005956, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+            AltaEmpleado("Maria Rodriguez", "senior", 49005956, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), false, "e5", "e5");
 
             //6
             fechaNac = new DateTime(1987, 10, 31);
-            AltaEmpleado("Nicolas Batalla", "semi-senior", 49005957, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+            AltaEmpleado("Nicolas Batalla", "semi-senior", 49005957, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), false, "e6", "e6");
 
             //7
             fechaNac = new DateTime(1984, 1, 14);
-            AltaEmpleado("Andrea Durlacher", "tech lead", 49005958, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+            AltaEmpleado("Andrea Durlacher", "tech lead", 49005958, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), false, "e7", "e7");
 
             //8
             fechaNac = new DateTime(1991, 6, 5);
-            AltaEmpleado("Alfonso Correa", "junior", 49005959, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+            AltaEmpleado("Alfonso Correa", "junior", 49005959, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), false, "e8", "e8");
 
             //9
             fechaNac = new DateTime(1995, 2, 1);
-            AltaEmpleado("Julian Cabrera", "semi-senior", 49005960, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+            AltaEmpleado("Julian Cabrera", "semi-senior", 49005960, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), false, "e9", "e9");
 
             //10
             fechaNac = new DateTime(1992, 12, 23);
-            AltaEmpleado("Sebastian Sueldo", "junior", 49005961, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed));
+            AltaEmpleado("Sebastian Sueldo", "junior", 49005961, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), false, "e10", "e10");
 
             // modificacion de empleados
             ResultadoInt idEmp1 = ObtenerIdEmpleadoPorCi(49005954);
             Empleado empMod1 = ObtenerEmpleadoPorId(idEmp1.valor);
-            ModificacionEmpleado(idEmp1.valor, empMod1.ObtenerNombre(), "senior", empMod1.ObtenerCi(), empMod1.ObtenerFechaNacimiento(), empMod1.ObtenerFechaContratacion(), empMod1.ObtenerSueldo());
+            ModificacionEmpleado(idEmp1.valor, empMod1.ObtenerNombre(), "senior", empMod1.ObtenerCi(), empMod1.ObtenerFechaNacimiento(), empMod1.ObtenerFechaContratacion(), empMod1.ObtenerSueldo(), false, "e3", "e3");
 
             ResultadoInt idEmp2 = ObtenerIdEmpleadoPorCi(50431051);
             Empleado empMod2 = ObtenerEmpleadoPorId(idEmp2.valor);
-            ModificacionEmpleado(idEmp2.valor, empMod2.ObtenerNombre(), empMod2.ObtenerCategoria(), empMod2.ObtenerCi(), empMod2.ObtenerFechaNacimiento(), empMod2.ObtenerFechaContratacion(), 50.0f);
-
+            ModificacionEmpleado(idEmp2.valor, empMod2.ObtenerNombre(), empMod2.ObtenerCategoria(), empMod2.ObtenerCi(), empMod2.ObtenerFechaNacimiento(), empMod2.ObtenerFechaContratacion(), 50.0f, false, "e1", "e1");
 
             ResultadoInt idEmp3 = ObtenerIdEmpleadoPorCi(42935324);
             Empleado empMod3 = ObtenerEmpleadoPorId(idEmp3.valor);
-            ModificacionEmpleado(idEmp3.valor, empMod3.ObtenerNombre(), "tech lead", empMod3.ObtenerCi(), empMod3.ObtenerFechaNacimiento(), empMod3.ObtenerFechaContratacion(), empMod3.ObtenerSueldo() - 50.0f);
+            ModificacionEmpleado(idEmp3.valor, empMod3.ObtenerNombre(), "tech lead", empMod3.ObtenerCi(), empMod3.ObtenerFechaNacimiento(), empMod3.ObtenerFechaContratacion(), empMod3.ObtenerSueldo() - 50.0f, true, "e0", "e0");
         }
 
         private void CreacionDeClientes(Random randomSeed)
         {
             // creacion de clientes       
-            Cliente cliente0 = new Cliente("Umbrella", "123456789111", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente0 = new Cliente("Umbrella", 123456789111, FechaPasadaAleatoria(15, randomSeed), "c0", "c0");
             clientes.Add(cliente0);
 
-            Cliente cliente1 = new Cliente("MomCorp", "123456789112", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente1 = new Cliente("MomCorp", 123456789112, FechaPasadaAleatoria(15, randomSeed), "c1", "c1");
             clientes.Add(cliente1);
 
-            Cliente cliente2 = new Cliente("BuyNLarge", "123456789113", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente2 = new Cliente("BuyNLarge", 123456789113, FechaPasadaAleatoria(15, randomSeed), "c2", "c2");
             clientes.Add(cliente2);
 
-            Cliente cliente3 = new Cliente("WolframAndHart", "123456789114", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente3 = new Cliente("WolframAndHart", 123456789114, FechaPasadaAleatoria(15, randomSeed), "c3", "c3");
             clientes.Add(cliente3);
 
-            Cliente cliente4 = new Cliente("OsCorp", "123456789115", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente4 = new Cliente("OsCorp", 123456789115, FechaPasadaAleatoria(15, randomSeed), "c4", "c4");
             clientes.Add(cliente4);
 
-            Cliente cliente5 = new Cliente("HansoFoundation", "123456789116", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente5 = new Cliente("HansoFoundation", 123456789116, FechaPasadaAleatoria(15, randomSeed), "c5", "c5");
             clientes.Add(cliente5);
 
-            Cliente cliente6 = new Cliente("ZorgIndustries", "123456789117", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente6 = new Cliente("ZorgIndustries", 123456789117, FechaPasadaAleatoria(15, randomSeed), "c6", "c6");
             clientes.Add(cliente6);
 
-            Cliente cliente7 = new Cliente("OCP", "123456789118", FechaPasadaAleatoria(15, randomSeed));
+            Cliente cliente7 = new Cliente("OCP", 123456789118, FechaPasadaAleatoria(15, randomSeed), "c7", "c7");
             clientes.Add(cliente7);
         }
 
@@ -275,7 +292,7 @@ namespace SoftwORT_lib
 
             for (int i = 0; i < clientes.Count; i++)
             {
-                string rutCliente = clientes[i].ObtenerRut();
+                long rutCliente = clientes[i].ObtenerRut();
                 int cantProCli = 0;
 
                 for (int j = 0; j < proyectos.Count; j++)
@@ -324,9 +341,11 @@ namespace SoftwORT_lib
             return resultado;
         }
 
-        public ResultadoString AltaEmpleado(string pNom, string pCat, int pCi, DateTime pFNac, DateTime pFCon, float pSueldo)
+        public ResultadoString AltaEmpleado(string pNom, string pCat, int pCi, DateTime pFNac, DateTime pFCon, float pSueldo, bool pAdmin, string pNomUsu, string pCon)
         {
             ResultadoString validesDeDatos;
+            validesDeDatos.valor = "";
+            validesDeDatos.exito = true;
 
             // chekeamos que un empleado con la misma ci no esté ya ingresado en el sistema
             if (ObtenerEmpleadoPorCi(pCi) != null)
@@ -335,11 +354,22 @@ namespace SoftwORT_lib
                 validesDeDatos.valor = "Error: \n";
                 validesDeDatos.valor += "Empleado con misma cedula ya ingresado en el sistema \n";
             }
-            else
-            {
-                // validamos el resto de los datos de acuerdo a las reglas de negocio de empleado
-                validesDeDatos = Empleado.DatosEmpleadoValidos(pNom, pCat, pFNac, pFCon, pSueldo);
 
+            // checkeamos que combinacion nombre de usuario/contrasenia no existen en el sistema
+            if (ObtenerUsuario(pNomUsu, pCon) != null)
+            {           
+                if (!validesDeDatos.exito)
+                {
+                    validesDeDatos.valor = "Error: \n";
+                }               
+                validesDeDatos.valor += "La combinacion nombre de usuario y contrasenia ingresada ya existe en el sistema \n";
+                validesDeDatos.exito = false;
+            }
+
+            // validamos el resto de los datos de acuerdo a las reglas de negocio de empleado
+            if (validesDeDatos.exito)
+            {             
+                validesDeDatos = Empleado.DatosEmpleadoValidos(pNom, pCat, pFNac, pFCon, pSueldo);
             }
 
             // si entramos aca es que todos los campos fueron validados
@@ -348,7 +378,7 @@ namespace SoftwORT_lib
                 validesDeDatos.valor = "Empleado creado exitosamente.";
                 int nuevoIdEmpleado = Empleado.NuevoIdEmpleado();
 
-                Empleado empleado = new Empleado(pNom, pCat, nuevoIdEmpleado, pCi, pFCon, pFNac, pSueldo);
+                Empleado empleado = new Empleado(pNom, pCat, nuevoIdEmpleado, pCi, pFCon, pFNac, pSueldo,pAdmin, pNomUsu, pCon);
                 empleados.Add(empleado);
             }
 
@@ -357,7 +387,7 @@ namespace SoftwORT_lib
 
 
 
-        public ResultadoString ModificacionEmpleado(int pId, string pNom, string pCat, int pCi, DateTime pFNac, DateTime pFCon, float pSueldo)
+        public ResultadoString ModificacionEmpleado(int pId, string pNom, string pCat, int pCi, DateTime pFNac, DateTime pFCon, float pSueldo, bool pAdmin, string pNomUsu, string pCon)
         {
             ResultadoString validesDeDatos;
             Empleado empleado = ObtenerEmpleadoPorId(pId);
@@ -433,52 +463,47 @@ namespace SoftwORT_lib
             return resultado;
         }
 
-        public ResultadoString ListarClientes(string pCat)
+        public Usuario ObtenerUsuario(string pNom, string pCon)
         {
-            ResultadoString resultado;
-            resultado.exito = false;
-            resultado.valor = "";
-
-            /*
-            resultado.valor += "Listado de empleados: \n";
-
-            pCat = pCat.ToLower();
-            int cantEmpleadosEncontrados = 0;
-
-            // si el usuario ingresó una categoría válida
-            if (Empleado.EsCategoriaEmpleadoValida(pCat))
+            Usuario result = null;
+            if (empleados.Count != 0 || clientes.Count != 0)
             {
-                resultado.valor += "\n";
-                for (int i = 0; i < empleados.Count; i++)
+                int i = 0;
+                //hacemos busqueda por empleados primero
+                while (result == null && i < empleados.Count)
                 {
-                    if (empleados[i].ObtenerCategoria() == pCat)
+                    Usuario temp = empleados[i].ObtenerUsuario();
+                    string[] NomCon = temp.ObtenerNomCont();
+                    if (NomCon[0] == pNom && NomCon[1] == pCon)
                     {
-                        resultado.valor += empleados[i].ObtenerInfo();
-                        cantEmpleadosEncontrados++;
+                        result = temp;
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+                // reseteamos el contador
+                i = 0;
+
+                // hacemos busqueda por clientes segundo, solo deberia entrar 
+                // si no ha encontrado usuario en la primer busqueda
+                while (result == null && i < clientes.Count)
+                {
+                    Usuario temp = clientes[i].ObtenerUsuario();
+                    string[] NomCon = temp.ObtenerNomCont();
+                    if (NomCon[0] == pNom && NomCon[1] == pCon)
+                    {
+                        result = temp;
+                    }
+                    else
+                    {
+                        i++;
                     }
                 }
             }
-            // si el usuario no ingresó una categoría válida
-            else
-            {
-                resultado.valor += "(categoría inválida o vacía, se listarán todos los empleados) \n";
-                resultado.valor += "\n";
-                for (int i = 0; i < empleados.Count; i++)
-                {
-                    resultado.valor += empleados[i].ObtenerInfo();
-                    cantEmpleadosEncontrados++;
-                }
-            }
 
-            if (cantEmpleadosEncontrados == 0)
-            {
-                resultado.valor = "No se encontron empleados en el sistema que cumplieran los requisitos de busqueda.";
-            }
-
-            resultado.valor += "\n";
-
-            */
-            return resultado;
+            return result;
         }
 
 
@@ -583,7 +608,7 @@ namespace SoftwORT_lib
             empleados = new List<Empleado>();
             clientes = new List<Cliente>();
             proyectos = new List<Proyecto>();
-
+            usuarioActual = new Usuario(Usuario.Rol.SinRol,"" ,"" );
             PrecargaDeDatos();
         }
     }

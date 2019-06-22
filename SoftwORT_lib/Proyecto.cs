@@ -14,8 +14,6 @@ namespace SoftwORT_lib
         private int duracionEstimada; // dias laborables totales
         private List<Empleado> empleados;
 
-
-
         public Cliente ObtenerCliente()
         {
             return cliente;

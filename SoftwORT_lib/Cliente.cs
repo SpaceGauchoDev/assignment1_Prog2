@@ -9,22 +9,25 @@ namespace SoftwORT_lib
     public class Cliente
     {
         private string nombre;
-        private string rut;
         private DateTime primeraRelacionLaboral;
-
+        private long rut;
+        private Usuario usuario;
 
         public Cliente()
         {
             nombre = "";
-            rut = "";
+            rut = 0;
             primeraRelacionLaboral = new DateTime();
+            usuario = new Usuario();
         }
 
-        public Cliente(string pNombre, string pRut, DateTime pPRL)
+        public Cliente(string pNombre, long pRut, DateTime pPRL, string pNomUsu, string pCon)
         {
             nombre = pNombre;
             rut = pRut;
             primeraRelacionLaboral = pPRL;
+
+            usuario = new Usuario(Usuario.Rol.Cliente, pNomUsu, pCon);
         }
 
         public DateTime ObtenerRelLab()
@@ -32,7 +35,7 @@ namespace SoftwORT_lib
             return primeraRelacionLaboral;
         }
 
-        public string ObtenerRut()
+        public long ObtenerRut()
         {
             return rut;
         }
@@ -42,17 +45,22 @@ namespace SoftwORT_lib
             return nombre;
         }
 
+        public Usuario ObtenerUsuario()
+        {
+            return usuario;
+        }
+
         public string ObtenerNomRutRelLab_AsString()
         {
             string fecha = primeraRelacionLaboral.Day.ToString() + " - " + primeraRelacionLaboral.Month.ToString() + " - "  + primeraRelacionLaboral.Year.ToString();
-            string result = "Nombre: " + nombre + " | Rut: " + rut + " | Primer relacion laboral: " + fecha + "\n";                 
+            string result = "Nombre: " + nombre + " | Rut: " + rut.ToString() + " | Primer relacion laboral: " + fecha + "\n";                 
             return result;
         }
 
         public string ObtenerRelLabRut_AsString()
         {
             string fecha = primeraRelacionLaboral.Day.ToString() + " - " + primeraRelacionLaboral.Month.ToString() + " - " + primeraRelacionLaboral.Year.ToString();
-            string result = "Primer relacion laboral: " + fecha + " | Rut: " + rut +" " ;
+            string result = "Primer relacion laboral: " + fecha + " | Rut: " + rut.ToString() +" " ;
             return result;
         }
 

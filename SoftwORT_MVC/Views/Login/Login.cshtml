@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<form action="Login/Login" method="post">
+    <label>Nombre de usuario: </label>
+    <input type="text" name="nombreUsuario" />
+    <br />
+    <label>Contraseña:  </label>
+    <input type="password" name="contrasenia" />
+    <br />
+    <input type="submit" />
+</form>
+
+<p>@ViewBag.Mensaje</p>
+
