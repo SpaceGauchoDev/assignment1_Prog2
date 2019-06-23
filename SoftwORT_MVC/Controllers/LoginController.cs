@@ -15,7 +15,7 @@ namespace SoftwORT_MVC.Controllers
             return View("Login");
         }
 
-        public ActionResult Login(string nombreUsuario, string contrasenia)
+        public ActionResult Login(string nombreUsuario = "", string contrasenia = "")
         {
             if (nombreUsuario != "" && contrasenia != "")
             {

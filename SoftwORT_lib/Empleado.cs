@@ -92,20 +92,20 @@ namespace SoftwORT_lib
 
             Admin.ResultadoString result;
             bool exito = true;
-            string msg = "Error en datos de empleado: \n";
+            string msg = "Error en datos de empleado: ";
 
             // checkeamos que el parametro nombre no este vacio    
             if (pNom == "")
             {
                 exito = false;
-                msg += "Nombre vacío \n";
+                msg += "Nombre vacío. ";
             }
 
             // checkeamos que el parametro categoria no este vacio
             if (pCat == "")
             {
                 exito = false;
-                msg += "Categoria vacía \n";
+                msg += "Categoria vacía. ";
             }
             else
             {
@@ -113,7 +113,7 @@ namespace SoftwORT_lib
                 if (!EsCategoriaEmpleadoValida(pCat))
                 {
                     exito = false;
-                    msg += "Categoria invalida \n";
+                    msg += "Categoria invalida. ";
                 }
             }
 
@@ -125,14 +125,14 @@ namespace SoftwORT_lib
             if (pFCon == null)
             {
                 exito = false;
-                msg += "Fecha de contratacion invalida \n";
+                msg += "Fecha de contratacion invalida. ";
             }
 
             // chekeamos que la fecha de nacimiento no sea nula
             if (pFNac == null)
             {
                 exito = false;
-                msg += "Fecha de nacimiento invalida \n";
+                msg += "Fecha de nacimiento invalida. ";
             }
             else
             {
@@ -140,7 +140,7 @@ namespace SoftwORT_lib
                 if (pFNac > DateTime.Now)
                 {
                     exito = false;
-                    msg += "Fecha de nacimiento no puede ser mayor a la fecha actual \n";
+                    msg += "Fecha de nacimiento no puede ser mayor a la fecha actual. ";
                 }
                 else
                 {
@@ -148,7 +148,7 @@ namespace SoftwORT_lib
                     if (pFCon < pFNac)
                     {
                         exito = false;
-                        msg += "Fecha de contratacion no puede ser menor que la fecha de nacimiento \n";
+                        msg += "Fecha de contratacion no puede ser menor que la fecha de nacimiento. ";
                     }
                     else
                     {
@@ -163,7 +163,7 @@ namespace SoftwORT_lib
                             if (pFNac > fechaMayoriaEdad)
                             {
                                 exito = false;
-                                msg += "No puede ser menor de edad \n";
+                                msg += "No puede ser menor de edad. ";
                             }
                         }
                     }
@@ -178,12 +178,12 @@ namespace SoftwORT_lib
             if (pSueldo < 0)
             {
                 exito = false;
-                msg += "Sueldo invalido, no puede ser negativo \n";
+                msg += "Sueldo invalido, no puede ser negativo. ";
             }
 
             if (exito)
             {
-                msg = "Datos empleado validos";
+                msg = "Datos empleado validos. ";
             }
 
             result.exito = exito;

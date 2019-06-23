@@ -351,8 +351,8 @@ namespace SoftwORT_lib
             if (ObtenerEmpleadoPorCi(pCi) != null)
             {
                 validesDeDatos.exito = false;
-                validesDeDatos.valor = "Error: \n";
-                validesDeDatos.valor += "Empleado con misma cedula ya ingresado en el sistema \n";
+                validesDeDatos.valor = "Error: ";
+                validesDeDatos.valor += "Empleado con misma cedula ya ingresado en el sistema. ";
             }
 
             // checkeamos que combinacion nombre de usuario/contrasenia no existen en el sistema
@@ -362,7 +362,7 @@ namespace SoftwORT_lib
                 {
                     validesDeDatos.valor = "Error: \n";
                 }               
-                validesDeDatos.valor += "La combinacion nombre de usuario y contrasenia ingresada ya existe en el sistema \n";
+                validesDeDatos.valor += "La combinacion nombre de usuario y contraseña ingresada ya existe en el sistema. ";
                 validesDeDatos.exito = false;
             }
 
@@ -375,7 +375,7 @@ namespace SoftwORT_lib
             // si entramos aca es que todos los campos fueron validados
             if (validesDeDatos.exito)
             {
-                validesDeDatos.valor = "Empleado creado exitosamente.";
+                validesDeDatos.valor = "Empleado creado exitosamente. ";
                 int nuevoIdEmpleado = Empleado.NuevoIdEmpleado();
 
                 Empleado empleado = new Empleado(pNom, pCat, nuevoIdEmpleado, pCi, pFCon, pFNac, pSueldo,pAdmin, pNomUsu, pCon);

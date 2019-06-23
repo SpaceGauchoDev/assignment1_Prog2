@@ -69,8 +69,37 @@ namespace SoftwORT_MVC.Controllers
         }
 
 
-        public ActionResult AltaEmpleado()
-        {
+        // inicializamos los parametros con valores por defecto para poder comparar contra
+        // ingresos vacios
+        public ActionResult AltaEmpleado(   DateTime? fNacEmp = null, 
+                                            DateTime? fContEmp = null,
+                                            bool adminEmp = false,
+                                            string nomEmp = "", 
+                                            int ciEmp = -1,
+                                            string catEmp = "",                                         
+                                            float sueldoEmp = -1,
+                                            string usuEmp = "",
+                                            string contEmp1 = ""){
+
+            // si usuario ha ingresado todos los datos
+            if (nomEmp != "" && 
+                ciEmp != -1 && 
+                sueldoEmp != -1 &&
+                usuEmp != "" &&
+                contEmp1 != "")
+            {
+                Admin.ResultadoString intento;
+                intento.valor = "";
+                intento.exito = false;
+                intento = Admin.Instancia.AltaEmpleado(nomEmp, catEmp, ciEmp, fNacEmp.Value, fContEmp.Value, sueldoEmp, adminEmp, usuEmp, contEmp1);
+
+                ViewBag.Mensaje = intento.valor;
+            }
+            else
+            {
+                ViewBag.Mensaje = "Faltan datos";           
+            }
+
             return View();
         }
 

@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Alta Empleado";
+}
+
+<h2>AltaEmpleado</h2>
+<br />
+<form action="AltaEmpleado" method="post">
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Nombre completo: </label>
+            <input type="text" name="nomEmp" class="input-sm" value=""/>
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">CI: </label>
+            <input type="number" name="ciEmp" class="input-sm" value=""/>
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Fecha de nacimiento: </label>
+            <input type="date" name="fNacEmp" class="input-sm" />
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Fecha de contratacion: </label>
+            <input type="date" name="fContEmp" class="input-sm" />
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Categoria: </label>
+            <select name="catEmp">
+                <option value="junior">Junior</option>
+                <option value="semi-senior">Semi-Senior</option>
+                <option value="senior">Senior</option>
+                <option value="tech lead">Tech lead</option>
+            </select>
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Sueldo: </label>
+            <input type="number" name="sueldoEmp" class="input-sm" />
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Es empleado administrador: </label>
+            <input type="checkbox" name="adminEmp" class="input-sm" />
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Nombre de usuario:  </label>
+            <input type="text" name="usuEmp" class="input-sm" />
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Contraseña:  </label>
+            <input type="password" name="contEmp1" class="input-sm" />
+        </div>
+
+        <!--
+         <div class="list-group-item">
+            <label class="control-label col-lg-2">Confirme contraseña:  </label>
+            <input type="password" name="contEmp2" class="input-sm" />
+        </div>           
+        -->
+
+        <div class="list-group-item">
+            <p>@ViewBag.Mensaje</p>
+        </div>
+
+        <div class="list-group-item">
+            <input type="submit" value="Crear Empleado" class="btn btn-default" />
+        </div>
+
+        <div class="list-group-item">
+            <button onclick="location.href='@Url.Action("MainMenuAdministrador", "Empleado")';return false;" class="btn btn-default">Volver</button>
+        </div>
+
+    </div>
+</form>
