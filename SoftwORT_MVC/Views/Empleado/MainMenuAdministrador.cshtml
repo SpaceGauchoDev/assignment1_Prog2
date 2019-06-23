@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "MainMenuAdministrador";
+}
+
+<h2>Opciones Empleado-Administrador: </h2>
+<div class="list-group">
+    <div class="list-group-item">
+        <button onclick="location.href='@Url.Action("AltaEmpleado", "Empleado")';return false;" class="btn btn-default">Alta empleado</button>
+    </div>
+    <div class="list-group-item">
+        <button onclick="location.href='@Url.Action("ModificacionEmpleado", "Empleado")';return false;" class="btn btn-default">Modificacion empleado</button>
+    </div>
+    <div class="list-group-item">
+        <button onclick="location.href='@Url.Action("BajaEmpleado", "Empleado")';return false;" class="btn btn-default">Baja empleado</button>
+    </div>
+    <div class="list-group-item">
+        <button onclick="location.href='@Url.Action("AltaProyecto", "Empleado")';return false;" class="btn btn-default">Alta proyecto</button>
+    </div>
+    <div class="list-group-item">
+        <button onclick="location.href='@Url.Action("AusenciasProyecto", "Empleado")';return false;" class="btn btn-default">Agregar ausencias a proyecto</button>
+    </div>
+    <div class="list-group-item">
+        <button onclick="location.href='@Url.Action("BajaProyecto", "Empleado")';return false;" class="btn btn-default">Baja proyecto</button>
+    </div>
+    <div class="list-group-item">
+        <button onclick="location.href='@Url.Action("Logout", "Empleado")';return false;" class="btn btn-default">Logout</button>
+    </div>
+</div>

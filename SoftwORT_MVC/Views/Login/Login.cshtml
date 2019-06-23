@@ -2,16 +2,25 @@
 @{
     ViewBag.Title = "Login";
 }
-
+<br />
 <form action="Login/Login" method="post">
-    <label>Nombre de usuario: </label>
-    <input type="text" name="nombreUsuario" />
-    <br />
-    <label>Contraseña:  </label>
-    <input type="password" name="contrasenia" />
-    <br />
-    <input type="submit" />
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="control-label">Nombre de usuario: </label>
+            <input type="text" name="nombreUsuario" class="input-sm"/>
+        </div>
+        <div class="list-group-item">
+            <label class="control-label">Contraseña:  </label>
+            <input type="password" name="contrasenia" class="input-sm"/>
+        </div>
+        <div class="list-group-item">
+            <input type="submit" value="Login" class="btn btn-default"/>
+        </div>
+        <div class="list-group-item">
+            <p>@ViewBag.Mensaje</p>
+        </div>
+    </div>
 </form>
 
-<p>@ViewBag.Mensaje</p>
+
 
