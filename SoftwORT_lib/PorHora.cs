@@ -51,6 +51,20 @@ namespace SoftwORT_lib
             }
         }
 
+        public HorasEmpleado EmpleadoTieneAusenciasEnEsteProyecto(Empleado pE)
+        {
+            HorasEmpleado he = null;
+
+            for (int i = 0; i < horasAusenteEmp.Count; i++)
+            {
+                if (pE.ObtenerId() == horasAusenteEmp[i].ObtenerEmpleado().ObtenerId())
+                {
+                    he = horasAusenteEmp[i];
+                }
+
+            }
+            return he;
+        }
 
 
         public override void CerrarProyecto(DateTime? fCierre = default(DateTime?))

@@ -168,6 +168,7 @@
     <Content Include="Views\Empleado\ModEmpleado_Buscar.cshtml" />
     <Content Include="Views\Empleado\ModEmpleado_DatosActuales.cshtml" />
     <Content Include="Views\Cliente\EmpleadosProyecto_Mostrar.cshtml" />
+    <Content Include="Views\Empleado\AusenciasPorProyecto_Mostrar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

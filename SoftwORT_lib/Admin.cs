@@ -540,8 +540,33 @@ namespace SoftwORT_lib
 
             return c;
         }
-         
-              
+
+
+        public Empleado ObtenerEmpleadoPorUsuario(Usuario pU)
+        {
+            Empleado e = null;
+
+            string pNom = pU.ObtenerNomCont()[0];
+            string pCont = pU.ObtenerNomCont()[1];
+
+            int i = 0;
+            while (i < empleados.Count && e == null)
+            {
+                string nom = empleados[i].ObtenerUsuario().ObtenerNomCont()[0];
+                string cont = empleados[i].ObtenerUsuario().ObtenerNomCont()[1];
+                if (nom == pNom && cont == pCont)
+                {
+                    e = empleados[i];
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            return e;
+        }
+
 
         public ResultadoInt ObtenerIdEmpleadoPorCi(int pCi)
         {
@@ -644,6 +669,29 @@ namespace SoftwORT_lib
         {
             return p.ListarEmpleados();
         }
+
+
+        public List<string> AusenciasPorEmpleado(Empleado e)
+        {
+            List<string> aus = new List<string>();
+
+            for (int i = 0; i < proyectos.Count; i++)
+            {
+                Type t = proyectos[i].GetType();
+                if (t.Equals(typeof(PorHora)))
+                {
+                    PorHora porHora = (PorHora)proyectos[i];
+                    HorasEmpleado horasEmpleado = porHora.EmpleadoTieneAusenciasEnEsteProyecto(e);
+                    if(horasEmpleado != null)
+                    {
+                        string result = "id proyecto:" + porHora.ObtenerId() + " |  horas de ausencia: " + horasEmpleado.ObtenerHoras().ToString();
+                        aus.Add(result);
+                    }
+                }
+            }
+            return aus;
+        }
+
 
         private Empleado ObtenerEmpleadoPorCi(int ci)
         {

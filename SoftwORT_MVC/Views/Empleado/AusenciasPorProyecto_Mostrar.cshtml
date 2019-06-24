@@ -1,0 +1,27 @@
+﻿@model List<string>
+
+@{
+    ViewBag.Title = "AusenciasPorProyecto_Mostrar";
+}
+
+<h2>AusenciasPorProyecto_Mostrar</h2>
+
+<table>
+    <tr>
+        <td>Ausencias: </td>
+    </tr>
+    @foreach (string aus in Model)
+    {
+        <tr>
+            <td>@aus</td>
+        </tr>
+    }
+
+</table>
+
+<div class="list-group">
+
+    <div class="list-group-item">
+        <button onclick="location.href='@Url.Action("MainMenuEmpleado", "Empleado")';return false;" class="btn btn-default">Volver</button>
+    </div>
+</div>

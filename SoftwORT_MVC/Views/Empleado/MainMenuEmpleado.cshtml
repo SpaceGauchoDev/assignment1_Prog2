@@ -6,22 +6,15 @@
 <h2>Opciones Empleado: </h2>
 <div class="list-group">
     <div class="list-group-item">
-        <p>Historial de todos los proyectos en que este empleado ha participado: </p>
-        <form action="Empleado/ProyectosPorEmpleado" method="get">
-            <input type="submit" value="Ver Proyectos" class="btn btn-default" /> <!-- esto probablemente deberia ser un boton como el de logout -->
-        </form>
+        <p>Historial de todos mis proyectos finalizados: </p>
+        <button onclick="location.href='@Url.Action("ProyectosPorEmpleado", "Empleado")';return false;" class="btn btn-default">Ver Proyectos</button>
+    </div>
 
-    </div>
     <div class="list-group-item">
-        <p>Detalle de ausencias de este empleado en un proyecto especifico: </p>
-        <form action="Empleado/AusenciasPorProyecto" method="post">
-            <label class="control-label">Id del proyecto: </label>
-            <input type="text" name="idProyecto" class="input-sm" />
-            <br />
-            <br />
-            <input type="submit" value="Buscar" class="btn btn-default" />
-        </form>
+        <p>Mostrar empleados por proyecto dado su id:</p>
+        <button onclick="location.href='@Url.Action("AusenciasPorProyecto_Mostrar", "Empleado")';return false;" class="btn btn-default">Buscar Proyecto</button>
     </div>
+
     <div class="list-group-item">
         <button onclick="location.href='@Url.Action("Logout", "Empleado")';return false;" class="btn btn-default">Logout</button>
     </div>

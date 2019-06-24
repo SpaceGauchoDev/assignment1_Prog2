@@ -48,9 +48,13 @@ namespace SoftwORT_MVC.Controllers
             return View();
         }
 
-        public ActionResult AusenciasPorProyecto()
+        public ActionResult AusenciasPorProyecto_Mostrar()
         {
-            return View();
+            Usuario user = (Usuario)Session["usuario"];
+            Empleado e = Admin.Instancia.ObtenerEmpleadoPorUsuario(user);
+
+            List<string> infoAusencias = Admin.Instancia.AusenciasPorEmpleado(e);
+            return View(infoAusencias);              
         }
 
         // ^^^^^^^^^^^^^^^^^

@@ -50,7 +50,7 @@ namespace SoftwORT_MVC.Controllers
 
         public ActionResult EmpleadosProyecto_Buscar(int idProy = -1)
         {
-            // si usuario ha ingresado ci
+            // si usuario ha ingresado id
             if (idProy != -1)
             {
                 Proyecto pro = Admin.Instancia.ObtenerProyectoPorId(idProy);
