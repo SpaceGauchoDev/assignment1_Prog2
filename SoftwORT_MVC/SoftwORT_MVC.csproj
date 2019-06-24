@@ -165,6 +165,8 @@
     <Content Include="Views\Cliente\BlaBla.cshtml" />
     <Content Include="Views\Empleado\MainMenuAdministrador.cshtml" />
     <Content Include="Views\Empleado\AltaEmpleado.cshtml" />
+    <Content Include="Views\Empleado\ModEmpleado_Buscar.cshtml" />
+    <Content Include="Views\Empleado\ModEmpleado_DatosActuales.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

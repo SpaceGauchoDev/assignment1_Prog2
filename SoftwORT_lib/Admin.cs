@@ -102,7 +102,7 @@ namespace SoftwORT_lib
             // creacion de empleados           
             //0
             DateTime fechaNac = new DateTime(1990, 2, 15);
-            AltaEmpleado("Manuel De Armas", "junior", 42935324, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), true, "e0", "e0");
+            AltaEmpleado("Manuel De Armas", "tech lead", 42935324, fechaNac, FechaPasadaAleatoria(5, randomSeed), FloatAleatorio(100.0f, 500.0f, randomSeed), true, "e0", "e0");
 
             //1
             fechaNac = new DateTime(1999, 1, 17);
@@ -530,7 +530,7 @@ namespace SoftwORT_lib
             return resultado;
         }
 
-        private Empleado ObtenerEmpleadoPorId(int id)
+        public Empleado ObtenerEmpleadoPorId(int id)
         {
             Empleado resultado = null;
             if (empleados.Count > 0)

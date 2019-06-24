@@ -10,7 +10,6 @@ namespace SoftwORT_lib
     {
         public static int edadMinima = 18;
         private static int ultimoIdEmpleado = 0;
-
         private string nombreCompleto;
         private int id;
         private int ci;
@@ -23,6 +22,19 @@ namespace SoftwORT_lib
         public int ObtenerId()
         {
             return id;
+        }
+
+
+        public DateTime FechaDeContratacion
+        {
+            get { return fechaDeContratacion; }
+            set { fechaDeContratacion = value; }
+        }
+
+        public DateTime FechaDeNacimiento
+        {
+            get { return fechaDeNacimiento; }
+            set { fechaDeNacimiento = value; }
         }
 
 
@@ -51,10 +63,29 @@ namespace SoftwORT_lib
             return fechaDeContratacion;
         }
 
+        public string ObtenerFConISO()
+        {
+            string result =     fechaDeContratacion.Year.ToString() + "-" + 
+                                fechaDeContratacion.Month.ToString() + "-" + 
+                                fechaDeContratacion.Day.ToString() ;
+            return result;
+        }
+
         public DateTime ObtenerFechaNacimiento()
         {
             return fechaDeNacimiento;
         }
+
+
+        public string ObtenerFNacISO()
+        {
+            string result =     fechaDeNacimiento.Year.ToString() + "-" +
+                                fechaDeNacimiento.Month.ToString() + "-" +
+                                fechaDeNacimiento.Day.ToString();
+            System.Diagnostics.Debug.WriteLine("fecha nacimiento: " + result);
+            return result;
+        }
+
 
         public Usuario ObtenerUsuario()
         {

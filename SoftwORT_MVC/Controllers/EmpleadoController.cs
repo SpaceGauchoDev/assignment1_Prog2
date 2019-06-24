@@ -76,7 +76,7 @@ namespace SoftwORT_MVC.Controllers
                                             bool adminEmp = false,
                                             string nomEmp = "", 
                                             int ciEmp = -1,
-                                            string catEmp = "",                                         
+                                            string catEmp = "",
                                             float sueldoEmp = -1,
                                             string usuEmp = "",
                                             string contEmp1 = ""){
@@ -103,9 +103,39 @@ namespace SoftwORT_MVC.Controllers
             return View();
         }
 
-        public ActionResult ModificacionEmpleado()
+        public ActionResult ModEmpleado_Buscar(int ciEmp = -1)
         {
+            // si usuario ha ingresado ci
+            if (ciEmp != -1)
+            {
+                Admin.ResultadoInt idEmp= Admin.Instancia.ObtenerIdEmpleadoPorCi(ciEmp);
+                if (idEmp.exito)
+                {
+                    TempData["empIDKey"] = idEmp.valor;
+                    return RedirectToAction("ModEmpleado_DatosActuales", "Empleado");                 
+                }
+                else
+                {
+                    ViewBag.Mensaje = "Empleado no existe";
+                }              
+            }
+            else
+            {
+                ViewBag.Mensaje = "Falta ci";
+            }
+
             return View();
+        }
+
+        public ActionResult ModEmpleado_DatosActuales()
+        {
+            int idEmpFound;
+            idEmpFound = (int)TempData["empIDKey"];
+
+            string selectedOption = Admin.Instancia.ObtenerEmpleadoPorId(idEmpFound).ObtenerCategoria();
+            ViewBag.SelectedOption = selectedOption;
+
+            return View("ModEmpleado_DatosActuales", Admin.Instancia.ObtenerEmpleadoPorId(idEmpFound));
         }
 
         public ActionResult BajaEmpleado()

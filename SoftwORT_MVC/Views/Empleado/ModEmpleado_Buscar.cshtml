@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "ModEmpleado_Buscar";
+}
+
+<h2>ModEmpleado_Buscar</h2>
+<br />
+<form action="ModEmpleado_Buscar" method="post">
+    <div class="list-group">
+        <div class="list-group-item">
+            <p>Ingresar cedula de identidad de empleado a modificar.</p>
+            <label class="control-label col-lg-2">CI: </label>
+            <input type="number" name="ciEmp" class="input-sm" value="" />
+        </div>
+
+        <div class="list-group-item">
+            <p>@ViewBag.Mensaje</p>
+        </div>
+
+        <div class="list-group-item">
+            <input type="submit" value="Buscar Empleado" class="btn btn-default" />
+        </div>
+
+        <div class="list-group-item">
+            <button onclick="location.href='@Url.Action("MainMenuAdministrador", "Empleado")';return false;" class="btn btn-default">Volver</button>
+        </div>
+
+    </div>
+</form>

@@ -1,0 +1,83 @@
+﻿@model SoftwORT_lib.Empleado
+
+@{
+    ViewBag.Title = "ModEmpleado_DatosActuales";
+}
+
+<h2>ModEmpleado_DatosActuales</h2>
+
+
+<form action="ModEmpleado_DatosActuales" method="post">
+    <div class="list-group">
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Nombre completo: </label>
+            <input type="text" name="nomEmp" class="input-sm" value="@Model.ObtenerNombre()" />
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">CI: </label>
+            <input type="number" name="ciEmp" class="input-sm" value="@Model.ObtenerCi()" />
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Fecha de nacimiento: </label>         
+            @Html.TextBoxFor(model => model.FechaDeNacimiento, new { @type = "date", @class = "form-control datepicker", @Value = Model.FechaDeNacimiento.ToString("yyyy-MM-dd") })
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Fecha de contratacion: </label>
+            @Html.TextBoxFor(model => model.FechaDeContratacion, new { @type = "date", @class = "form-control datepicker", @Value = Model.FechaDeContratacion.ToString("yyyy-MM-dd")})
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Categoria: </label>
+            <select name="catEmp">
+                <option value="junior" @(ViewBag.SelectedOption == "junior" ? "selected" : String.Empty)>Junior</option>
+                <option value="semi-senior" @(ViewBag.SelectedOption == "semi-senior" ? "selected" : String.Empty)>Semi-Senior</option>
+                <option value="senior" @(ViewBag.SelectedOption == "senior" ? "selected" : String.Empty)>Senior</option>
+                <option value="tech lead" @(ViewBag.SelectedOption == "tech lead" ? "selected" : String.Empty)>Tech lead</option>
+            </select>
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Sueldo: </label>
+            <input type="number" name="sueldoEmp" class="input-sm" value="@Model.ObtenerSueldo()"/>
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Es empleado administrador: </label>
+            <input type="checkbox" name="adminEmp" class="input-sm" checked="@Model.ObtenerUsuario().EsAdmin" />
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Nombre de usuario: </label>
+            <input type="text" name="usuEmp" class="input-sm"/>
+        </div>
+
+        <div class="list-group-item">
+            <label class="control-label col-lg-2">Contraseña: </label>
+            <input type="password" name="contEmp1" class="input-sm"/>
+        </div>
+
+        <div class="list-group-item">
+            <p>@ViewBag.Mensaje</p>
+        </div>
+
+        <div class="list-group-item">
+            <input type="submit" value="Modificar Empleado" class="btn btn-default" />
+        </div>
+
+        <div class="list-group-item">
+            <button onclick="location.href='@Url.Action("MainMenuAdministrador", "Empleado")';return false;" class="btn btn-default">Volver</button>
+        </div>
+
+    </div>
+</form>
+
+
+
+<label id="nombre">Nombre</label>
+<input type="text" name="nombre"  />
+<br />
+
+

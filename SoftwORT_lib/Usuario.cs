@@ -13,6 +13,7 @@ namespace SoftwORT_lib
         private Rol rol; //sinRol, empleado, cliente, admin
         private string nombreDeUsuario;
         private string contrasenia;
+        private bool esAdmin;
 
 
         public string[] ObtenerNomCont()
@@ -29,16 +30,29 @@ namespace SoftwORT_lib
             return rol;
         }
 
+        public bool EsAdmin
+        {
+            get { return esAdmin; }
+            set { esAdmin = value; }
+        }
+
         public Usuario()
         {
             rol = Rol.SinRol;
             nombreDeUsuario = "";
             contrasenia = "";
+            esAdmin = false;
         }
 
         public Usuario(Rol pRol, string pNom, string pCon)
         {
             rol = pRol;
+
+            esAdmin = false;
+            if (pRol == Rol.Admin)
+            {
+                esAdmin = true;
+            }
             nombreDeUsuario = pNom;
             contrasenia = pCon;
         }
