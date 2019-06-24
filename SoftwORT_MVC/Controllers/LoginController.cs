@@ -47,6 +47,7 @@ namespace SoftwORT_MVC.Controllers
                     ViewBag.Mensaje = msg;
 
                     Session["usuario"] = usuarioActual;
+
                     return RedirectToAction("Index", myControlador);
                 }
                 else

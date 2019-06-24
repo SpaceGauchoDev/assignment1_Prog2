@@ -35,6 +35,26 @@ namespace SoftwORT_lib
             return primeraRelacionLaboral;
         }
 
+
+        public bool MasDeXAnios( DateTime? pDate = null )
+        {
+            bool result = false;
+
+            if (pDate == null)
+            {
+                pDate = DateTime.Now;
+            }
+
+            int diffAnios = pDate.Value.Year - primeraRelacionLaboral.Year;
+
+            if (diffAnios >= 4)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
         public long ObtenerRut()
         {
             return rut;

@@ -95,7 +95,7 @@ namespace SoftwORT_lib
 
         public string ObtenerInfo()
         {
-            string result = "Nombre: " + nombreCompleto + " | Ci: " + ci.ToString() + " | Categoria: " + categoria + "\n";
+            string result = "Nombre: " + nombreCompleto + " | Ci: " + ci.ToString() + " | Categoria: " + categoria;
             return result;   
         }
 

@@ -190,28 +190,38 @@ namespace SoftwORT_lib
         {
             // creacion de proyectos presupuestados
             List<Empleado> empList1 = new List<Empleado>() { empleados[0], empleados[1] };
-            Presupuestado proyect1 = new Presupuestado(456.0f, "Virus-T", DateTime.Now.AddDays(5), clientes[0], 3, empList1);
+            int nuevoIdProyecto = Proyecto.NuevoIdProyecto();
+            Presupuestado proyect1 = new Presupuestado(nuevoIdProyecto, "Virus-T", DateTime.Now.AddDays(-10), clientes[0], 3, empList1);
             proyectos.Add(proyect1);
+            proyect1.CerrarProyecto(DateTime.Now.AddDays(-7)); // cerramos un proyecto tres dias despues que inició, en fecha
 
             List<Empleado> empList2 = new List<Empleado>() { empleados[2] };
-            Presupuestado proyect2 = new Presupuestado(150.0f, "EyePhone", DateTime.Now.AddDays(-3), clientes[0], 8, empList2);
+            nuevoIdProyecto = Proyecto.NuevoIdProyecto();
+            Presupuestado proyect2 = new Presupuestado(nuevoIdProyecto, "EyePhone", DateTime.Now.AddDays(-30), clientes[0], 10, empList2);
             proyectos.Add(proyect2);
+            proyect2.CerrarProyecto(DateTime.Now.AddDays(-15)); // cerramos un proyecto 15 dias despues de que inició, 5 dias pasados
 
             List<Empleado> empList3 = new List<Empleado>() { empleados[3], empleados[4], empleados[5] };
-            Presupuestado proyect3 = new Presupuestado(650.0f, "WallEBot", DateTime.Now.AddDays(5), clientes[0], 10, empList3);
+            nuevoIdProyecto = Proyecto.NuevoIdProyecto();
+            Presupuestado proyect3 = new Presupuestado(nuevoIdProyecto, "WallEBot", DateTime.Now.AddDays(-40), clientes[0], 10, empList3);
             proyectos.Add(proyect3);
+            proyect3.CerrarProyecto(DateTime.Now.AddDays(-30)); // cerramos un proyecto 10 días despues de que inició, en fecha
+
 
             // creacion de proyectos por hora
             List<Empleado> empList5 = new List<Empleado>() { empleados[8] };
-            PorHora proyect5 = new PorHora("Sabadebodueira", DateTime.Now.AddDays(-3), clientes[1], 7, empList5);
+            nuevoIdProyecto = Proyecto.NuevoIdProyecto();
+            PorHora proyect5 = new PorHora(nuevoIdProyecto, "Sabadebodueira", DateTime.Now.AddDays(-3), clientes[1], 7, empList5);
             proyectos.Add(proyect5);
 
             List<Empleado> empList6 = new List<Empleado>() { empleados[9], empleados[10] };
-            PorHora proyect6 = new PorHora("Fiebre de sabado a la noche", DateTime.Now.AddDays(-1), clientes[2], 3, empList6);
+            nuevoIdProyecto = Proyecto.NuevoIdProyecto();
+            PorHora proyect6 = new PorHora(nuevoIdProyecto, "Fiebre de sabado a la noche", DateTime.Now.AddDays(-1), clientes[2], 3, empList6);
             proyectos.Add(proyect6);
 
             List<Empleado> empList4 = new List<Empleado>() { empleados[6], empleados[7] };
-            PorHora proyect4 = new PorHora("RoboCop2", DateTime.Now.AddDays(2), clientes[1], 5, empList4);
+            nuevoIdProyecto = Proyecto.NuevoIdProyecto();
+            PorHora proyect4 = new PorHora(nuevoIdProyecto, "RoboCop2", DateTime.Now.AddDays(2), clientes[1], 5, empList4);
             proyectos.Add(proyect4);
         }
 
@@ -506,6 +516,32 @@ namespace SoftwORT_lib
             return result;
         }
 
+        public Cliente ObtenerClientePorUsuario(Usuario pU)
+        {
+            Cliente c = null;
+
+            string pNom = pU.ObtenerNomCont()[0];
+            string pCont = pU.ObtenerNomCont()[1];
+
+            int i = 0;
+            while (i < clientes.Count && c == null)
+            {
+                string nom = clientes[i].ObtenerUsuario().ObtenerNomCont()[0];
+                string cont = clientes[i].ObtenerUsuario().ObtenerNomCont()[1];
+                if (nom == pNom && cont == pCont)
+                {
+                    c = clientes[i];
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            return c;
+        }
+         
+              
 
         public ResultadoInt ObtenerIdEmpleadoPorCi(int pCi)
         {
@@ -554,6 +590,61 @@ namespace SoftwORT_lib
         }
 
 
+
+        public Proyecto ObtenerProyectoPorId(int id)
+        {
+            Proyecto resultado = null;
+            if (proyectos.Count > 0)
+            {
+                int i = 0;
+                while (i < proyectos.Count && resultado == null)
+                {
+
+                    if (proyectos[i].ObtenerId() == id)
+                    {
+                        resultado = proyectos[i];
+
+                    }
+                    else
+                    {
+                        i++;
+                    }
+                }
+            }
+            return resultado;
+        }
+
+
+        public List<string> ProyectosPorCliente(Cliente c)
+        {
+            List<string> infoPsC = new List<string>();
+            List<Proyecto> PsC = new List<Proyecto>();
+
+            for (int i = 0; i < proyectos.Count; i++)
+            {
+                if (proyectos[i].ObtenerCliente().ObtenerRut() == c.ObtenerRut()  && !proyectos[i].Abierto)
+                {
+                    PsC.Add(proyectos[i]);
+                }
+            }
+
+            PsC.Sort(new Proyecto.CompareByCosto());
+            PsC.Reverse();
+
+            for (int j = 0; j < PsC.Count; j++)
+            {
+                infoPsC.Add(PsC[j].ObtenerComFinCos());
+            }
+
+            return infoPsC;
+        }
+
+
+        public List<string> EmpleadosPorProyecto(Proyecto p)
+        {
+            return p.ListarEmpleados();
+        }
+
         private Empleado ObtenerEmpleadoPorCi(int ci)
         {
             Empleado resultado = null;
@@ -594,7 +685,6 @@ namespace SoftwORT_lib
             return result;
         }
 
-
         int IntAleatorio(int min, int max, Random pSeed)
         {
             //Random rand = new Random();
@@ -602,7 +692,7 @@ namespace SoftwORT_lib
             return result;
         }
 
-        public Admin()
+        private Admin()
         {
             //inicializacion de admin
             empleados = new List<Empleado>();

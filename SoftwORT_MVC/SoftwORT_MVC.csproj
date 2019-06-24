@@ -161,12 +161,13 @@
     <Content Include="Views\Empleado\MainMenuEmpleado.cshtml" />
     <Content Include="Views\Cliente\MainMenuCliente.cshtml" />
     <Content Include="Views\Cliente\VerProyectos.cshtml" />
-    <Content Include="Views\Cliente\EmpleadosProyecto.cshtml" />
+    <Content Include="Views\Cliente\EmpleadosProyecto_Buscar.cshtml" />
     <Content Include="Views\Cliente\BlaBla.cshtml" />
     <Content Include="Views\Empleado\MainMenuAdministrador.cshtml" />
     <Content Include="Views\Empleado\AltaEmpleado.cshtml" />
     <Content Include="Views\Empleado\ModEmpleado_Buscar.cshtml" />
     <Content Include="Views\Empleado\ModEmpleado_DatosActuales.cshtml" />
+    <Content Include="Views\Cliente\EmpleadosProyecto_Mostrar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

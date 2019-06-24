@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "EmpleadosProyecto";
+}
+
+<h2>EmpleadosProyecto</h2>
+
+<form action="EmpleadosProyecto_Buscar" method="post">
+    <div class="list-group">
+        <div class="list-group-item">
+            <p>Ingresar id del proyecto a buscar.</p>
+            <label class="control-label col-lg-2">id: </label>
+            <input type="number" name="idProy" class="input-sm"/>
+        </div>
+
+        <div class="list-group-item">
+            <p>@ViewBag.Mensaje</p>
+        </div>
+
+        <div class="list-group-item">
+            <input type="submit" value="Buscar Proyecto" class="btn btn-default" />
+        </div>
+
+        <div class="list-group-item">
+            <button onclick="location.href='@Url.Action("MainMenuCliente", "Cliente")';return false;" class="btn btn-default">Volver</button>
+        </div>
+
+    </div>
+</form>

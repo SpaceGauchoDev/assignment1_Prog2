@@ -1,20 +1,19 @@
 ﻿@model List<string>
 
-
 @{
-    ViewBag.Title = "VerProyectos";
+    ViewBag.Title = "EmpleadosProyecto_Mostrar";
 }
 
-<h2>VerProyectos</h2>
+<h2>EmpleadosProyecto_Mostrar</h2>
 
 <table>
     <tr>
-        <td>Proyectos: </td>
+        <td>Empleados: </td>
     </tr>
-    @foreach (string pro in Model)
+    @foreach (string emp in Model)
     {
         <tr>
-            <td>@pro</td>
+            <td>@emp</td>
         </tr>
     }
 

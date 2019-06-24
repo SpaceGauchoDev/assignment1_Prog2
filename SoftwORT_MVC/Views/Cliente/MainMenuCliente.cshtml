@@ -6,22 +6,15 @@
 <h2>Opciones Cliente: </h2>
 <div class="list-group">
     <div class="list-group-item">
-        <p>Historial de todos los proyectos solicitados a la empresa: </p>
-        <form action="Cliente/VerPoyectos" method="get">
-            <input type="submit" value="Ver Proyectos" class="btn btn-default" /> <!-- esto probablemente deberia ser un boton como el de logout -->
-        </form>
+        <p>Historial de todos mis proyectos finalizados: </p>
+        <button onclick="location.href='@Url.Action("VerProyectos", "Cliente")';return false;" class="btn btn-default">Ver Proyectos</button>
+    </div>
 
-    </div>
     <div class="list-group-item">
-        <p>Detalle de empleados que participaron de un proyecto especifico: </p>
-        <form action="Cliente/EmpleadosProyecto" method="post">
-            <label class="control-label">Id del proyecto: </label>
-            <input type="text" name="idProyecto" class="input-sm" />
-            <br />
-            <br />
-            <input type="submit" value="Buscar" class="btn btn-default" />
-        </form>
+        <p>Mostrar empleados por proyecto dado su id:</p>
+        <button onclick="location.href='@Url.Action("EmpleadosProyecto_Buscar", "Cliente")';return false;" class="btn btn-default">Buscar Proyecto</button>
     </div>
+
     <div class="list-group-item">
         <button onclick="location.href='@Url.Action("Logout", "Cliente")';return false;" class="btn btn-default">Logout</button>
     </div>
